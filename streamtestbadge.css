@@ -214,7 +214,7 @@ outline: none;
 .tabButton:hover {
    color: #111;
    text-decoration: none !important;
-   background: #ccc;
+   background-color: #ccc;
    cursor: pointer;
 
 }
