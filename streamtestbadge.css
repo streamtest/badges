@@ -14,7 +14,7 @@
 }
 
 #STVLHeader {
-     background: url("https://netrodev.github.io/streamtest-badge/top_bg.png") repeat-x scroll left top transparent;
+     background: url("https://streamtest.github.io/badges/top_bg.png") repeat-x scroll left top transparent;
      padding: 10px;
     border-radius: 2px;
 }
@@ -174,7 +174,7 @@
 
 
 #STVLFooter {
-    background: url("https://netrodev.github.io/streamtest-badge/top_bg.png") repeat-x scroll left top rgba(0, 0, 0, 0);
+    background: url("https://streamtest.github.io/badges/top_bg.png") repeat-x scroll left top rgba(0, 0, 0, 0);
     border-radius: 0 0 4px 4px;
     bottom: 0;
     color: #CCCCCC;
