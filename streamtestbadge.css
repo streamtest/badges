@@ -188,8 +188,6 @@
 }
 
 
-
-
 .tabButton {
 
 display: block;
@@ -204,6 +202,7 @@ color: #777;
 white-space: nowrap;
 padding: 10px 20px 12px 40px;
 border-radius: 0 0 20px 20px;
+margin: -6px 0 0 481px;
 margin-top: -6px;
 -webkit-margin-start: 481px;
 -moz-margin-start: 476px;
