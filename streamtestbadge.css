@@ -14,7 +14,7 @@
 }
 
 #STVLHeader {
-     background: url("https://az511280.vo.msecnd.net/images/top_bg.png") repeat-x scroll left top transparent;
+     background: url("https://netrodev.github.io/streamtest-badge/top_bg.png") repeat-x scroll left top transparent;
      padding: 10px;
     border-radius: 2px;
 }
@@ -174,7 +174,7 @@
 
 
 #STVLFooter {
-    background: url("https://az511280.vo.msecnd.net/images/top_bg.png") repeat-x scroll left top rgba(0, 0, 0, 0);
+    background: url("https://netrodev.github.io/streamtest-badge/top_bg.png") repeat-x scroll left top rgba(0, 0, 0, 0);
     border-radius: 0 0 4px 4px;
     bottom: 0;
     color: #CCCCCC;
@@ -192,7 +192,7 @@
 
 display: block;
 background-color: #1f1f1f;
-background-image:url(http://www.streamtest.net/favicon.ico);
+background-image:url(https://netrodev.github.io/streamtest-badge/favicon.ico);
 background-repeat: no-repeat;
 background-size: 20px;
 background-position: 15px 8px;
