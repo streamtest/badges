@@ -1,7 +1,7 @@
 var globalUrlArray = [];
 var sanitizationCharacters = ["\"", "&quot"];
 var hasjQueryLoaded = false
-var jQueryLoadCheckInterval = 0;
+var jQueryLoadCheckInterval = -1;
 var badgeMode = 2; //Badge Mode 1 = Show Badge No Auto Placement, 2 = Hide Badge Auto Placement, 3 = Show Badge Auto Placement 
 
 function include(filename, type) {
@@ -237,7 +237,7 @@ function checkJquery() {
             embedStreamtestBadge();
     }
 
-    if (!hasjQueryLoaded)
+    if (!hasjQueryLoaded && jQueryLoadCheckInterval == -1)
         jQueryLoadCheckInterval = window.setInterval(checkJquery, 100);
 }
 checkJquery();
