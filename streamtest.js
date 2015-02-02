@@ -231,6 +231,7 @@ function embedStreamtestBadge() {
 function checkJquery() {
     if (window.jQuery) {
         hasjQueryLoaded = true;
+        clearInterval(jQueryLoadCheckInterval);
         jqueryLoaded();
         if (badgeMode != 1)
             embedStreamtestBadge();
