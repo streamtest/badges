@@ -188,14 +188,18 @@ function embedStreamtestBadge() {
 
         jQuery("iframe").each(function (index, element) {
             var src = jQuery(element).attr('src');
-            var leftMargin = parseInt(jQuery(element).width()) - 152;
+            
+            if (src) {
+            
+            	var leftMargin = parseInt(jQuery(element).width()) - 152;
 
-            if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1)
-                src = "http:" + src;
+            	if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1)
+                	src = "http:" + src;
 
-            if (src.indexOf("youtube") != -1 || src.indexOf("vimeo") != -1)
-                var button = jQuery(element).after("<a href=//www.streamtest.net/#test?streamUrl=" + src + " target='_blank'><button class='tabButton'>Test this Stream</button></a>");
+            	if (src.indexOf("youtube") != -1 || src.indexOf("vimeo") != -1)
+                	var button = jQuery(element).after("<a href=//www.streamtest.net/#test?streamUrl=" + src + " target='_blank'><button class='tabButton'>Test this Stream</button></a>");
 
+		}
         });
 
         jQuery("object").each(function (index, element) {
