@@ -191,7 +191,7 @@ function embedStreamtestBadge() {
             
             if (src) {
             
-            	var leftMargin = parseInt(jQuery(element).width()) - 152;
+            	var leftMargin = parseInt(jQuery(element).width()) - 159;
 
             	if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1)
                 	src = "http:" + src;
@@ -204,7 +204,7 @@ function embedStreamtestBadge() {
 
         jQuery("object").each(function (index, element) {
             var type = jQuery(element).attr('type');
-            var leftMargin = parseInt(jQuery(element).width()) - 152;
+            var leftMargin = parseInt(jQuery(element).width()) - 159;
 
             if (type === "application/x-shockwave-flash") {
 
