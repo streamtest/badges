@@ -37,7 +37,7 @@ if (!window.jQuery) {
     include("//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", "js")
 }
 
-include("https://streamtest.github.io/badges/streamtestbadge.css", "css");
+include("https://streamtest.github.io/badges/testnewfile.css", "css");
 
 function jqueryLoaded() {
     clearInterval(jQueryLoadCheckInterval);
