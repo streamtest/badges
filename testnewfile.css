@@ -212,6 +212,7 @@
 	-moz-transition: all 0.2s linear;
 	-ms-transition: all 0.2s linear;
 	outline: none;
+	 text-decoration: none !important;
 }
 
 
