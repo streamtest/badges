@@ -216,10 +216,11 @@
 
 
 .tabButton:hover {
-   color: #111;
-   text-decoration: none !important;
-   background-color: #ccc;
+    background: #333;
+	text-shadow: 2px 4px 5px #333, 0 0 0 #000, 2px 4px 5px #333;
+	color: rgba(0,0,0, 0.6);
    cursor: pointer;
+   text-decoration: none !important;
 
 }
 
