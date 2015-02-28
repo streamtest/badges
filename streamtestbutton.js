@@ -197,7 +197,7 @@ function embedStreamtestBadge() {
                 	src = "http:" + src;
 
             	if (src.indexOf("youtube") != -1 || src.indexOf("vimeo") != -1)
-                	var button = jQuery(element).after("<a href=//www.streamtest.net/#test?streamUrl=" + src + " target='_blank'><button class='tabButton' style='margin: -6px 0 0 " + leftMargin + "px'>Test this Stream</button></a>");
+                	var button = jQuery(element).after("<a style='text-decoration: none !important;' href=//www.streamtest.net/#test?streamUrl=" + src + " target='_blank'><button class='tabButton' style='margin: -6px 0 0 " + leftMargin + "px'>Test this Stream</button></a>");
 
 		}
         });
