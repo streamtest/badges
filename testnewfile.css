@@ -189,20 +189,20 @@
 
 
 .tabButton {
-	background: url(https://streamtest.github.io/badges/faviconwhite.png) no-repeat left center, -webkit-linear-gradient(#333, #232323);
+	/*background: url(https://streamtest.github.io/badges/faviconwhite.png) no-repeat left center, -webkit-linear-gradient(#333, #232323); */
 	display: block;
-	background: #333;
+	background: #eee;
 	background-size: 30px, auto;
 	background-position: 15px 3px, 0 0;
 	border: none;
 	color: #777;
 	white-space: nowrap;
-	padding: 10px 20px 12px 50px;
+	padding: 10px 20px 10px 50px;
 	border-radius: 0 0 20px 20px;
-	text-shadow: 1px 4px 6px #333, 0 0 0 #000, 1px 4px 6px #333;
-	margin: -6px 0 0 483px !important;
+	text-shadow: 2px 4px 5px #eee, 0 0 0 #000, 2px 4px 5px #eee;
+	margin: 0;
 	margin-top: -6px;
-	color: rgba(1,1,1, 0.5);
+	color: rgba(225,0,0, 0.6);
 	font-size: 100px;
 	font-weight: bold;
 	-webkit-margin-start: 483px;
