@@ -218,8 +218,13 @@
     width: 250px;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
-	margin: -6px 0 0 348px;
-	border: 1px solid #eee;
+	margin: -6px 0 0 360px;
+}
+
+.streamButton:hover {
+	background: url(https://streamtest.github.io/badges/streamtestgauge.png) no-repeat left center, #eee;
+	background-size: 40px auto, auto;
+	background-position: 15px, 0;
 }
 
 @-webkit-keyframes slidetounlock {
