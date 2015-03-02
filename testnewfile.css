@@ -204,12 +204,13 @@
 	padding: 0;
 	width: 200%;
 	display: block;
+	padding: 20px 15px;
 	text-indent: 45px;
 	
 }
 
 .streamButton {
-    padding: 14px 20px;
+    padding: 0 20px;
 	background: url(https://streamtest.github.io/badges/streamtestgauge.png) no-repeat left center, #1b1e24;
 	background-size: 40px auto, auto;
 	background-position: 10px, 0;
