@@ -189,43 +189,22 @@
 
 
 .tabButton {
-	background: -moz-gradient(linear,left top,right top,color-stop(0, #ddd),color-stop(0.4, #fb3c4a),color-stop(0.5, #222),color-stop(0.6, #ddd),color-stop(1, #ddd));
-	background: -webkit-gradient(linear,left top,right top,color-stop(0, #000),color-stop(0.2, #fb3c4a),color-stop(0.3, #fff),color-stop(0.5, #fff),color-stop(1, #000));
-	background: gradient(linear,left top,right top,color-stop(0, #000),color-stop(0.2, #fb3c4a),color-stop(0.3, #fff),color-stop(0.5, #fff),color-stop(1, #000));
-	-moz-background-clip: text;
-	-webkit-background-clip: text;
-	-moz-text-fill-color: transparent;
-	-webkit-text-fill-color: transparent;
-	-webkit-animation: slideText 4s infinite;
-	-webkit-animation-timing-function: linear;
-	-moz-animation: slideText 4s infinite;
-	-moz-animation-timing-function: linear;
-	font-size: 20px;
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	font-style: italic;
+	font-size: 18px;
+	font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
 	text-transform: uppercase;
-	padding: 0;
-	width: 200%;
-	display: block;
-	padding: 20px 0;
-	text-indent: 45px;
-	text-decoration: none !important;
+	font-style: italic;
 	
 }
 
 .streamButton {
-    padding: 0 10px 0 20px;
+    padding: 0 0 0 20px;
 	background: url(https://streamtest.github.io/badges/streamtestgauge.png) no-repeat left center, #1b1e24;
 	background-size: 40px auto, auto;
-	background-position: 15px, 0;
+	background-position: 10px, 0;
     overflow: hidden; 
     width: 250px;
-	border-bottom-right-radius: 5px;
-	border-bottom-left-radius: 5px;
-	margin: -6px 0 0 360px;
-	-webkit-transition: background 2s;
-	-moz-transition: background 2s;
-	transition: background 2s;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
 }
 
 .streamButton:hover {
@@ -233,31 +212,3 @@
 	background-size: 40px auto, auto;
 	background-position: 15px, 0;
 }
-
-@-webkit-keyframes slideText {
-  0% {
-    background-position: -250px 0;
-  }
-  100% {
-    background-position: 250px 0;
-  }
-}
-
-@-moz-keyframes slideText {
-  0% {
-    background-position: -250px 0;
-  }
-  100% {
-    background-position: 250px 0;
-  }
-}
-
-@keyframes slideText {
-  0% {
-    background-position: -250px 0;
-  }
-  100% {
-    background-position: 250px 0;
-  }
-}
-
