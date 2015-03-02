@@ -205,19 +205,21 @@
 	width: 200%;
 	display: block;
 	padding: 20px 0;
-	text-indent: 50px;
+	text-indent: 45px;
 	
 }
 
 .streamButton {
-    padding: 0 20px;
+    padding: 0 10px 0 20px;
 	background: url(https://streamtest.github.io/badges/streamtestgauge.png) no-repeat left center, #1b1e24;
 	background-size: 40px auto, auto;
 	background-position: 15px, 0;
     overflow: hidden; 
     width: 250px;
-	border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	margin: -6px 0 0 348px;
+	border: 1px solid #eee;
 }
 
 @-webkit-keyframes slidetounlock {
