@@ -189,39 +189,43 @@
 
 
 .tabButton {
-	/*background: url(https://streamtest.github.io/badges/faviconwhite.png) no-repeat left center, -webkit-linear-gradient(#333, #232323); */
+	background: -moz-gradient(linear,left top,right top,color-stop(0, #ddd),color-stop(0.4, #fb3c4a),color-stop(0.5, #222),color-stop(0.6, #ddd),color-stop(1, #ddd));
+	background: -webkit-gradient(linear,left top,right top,color-stop(0, #000),color-stop(0.2, #fb3c4a),color-stop(0.3, #fff),color-stop(0.5, #fff),color-stop(1, #000));
+	-moz-background-clip: text;
+	-webkit-background-clip: text;
+	-moz-text-fill-color: transparent;
+	-webkit-text-fill-color: transparent;
+	-webkit-animation: slidetounlock 4s infinite;
+	-webkit-animation-timing-function: linear;
+	font-size: 20px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-style: italic;
+	text-transform: uppercase;
+	padding: 0;
+	width: 200%;
+	-webkit-text-size-adjust: none;
 	display: block;
-	background: #eee;
-	background-size: 30px, auto;
-	background-position: 15px 3px, 0 0;
-	border: none;
-	color: #777;
-	white-space: nowrap;
-	padding: 10px 20px 10px 50px;
-	border-radius: 0 0 20px 20px;
-	text-shadow: 2px 4px 5px #eee, 0 0 0 #000, 2px 4px 5px #eee;
-	margin: 0;
-	margin-top: -6px;
-	color: rgba(225,0,0, 0.6);
-	font-size: 100px;
-	font-weight: bold;
-	-webkit-margin-start: 483px;
-	-moz-margin-start: 476px;
-	transition: all 0.2s linear;
-	-webkit-transition: all 0.2s linear;
-	-moz-transition: all 0.2s linear;
-	-ms-transition: all 0.2s linear;
-	outline: none;
-	 text-decoration: none !important;
+	text-indent: 45px;
+	
 }
 
+.streamButton {
+    padding: 14px 20px;
+	background: url(https://streamtest.github.io/badges/streamtestgauge.png) no-repeat left center, #1b1e24;
+	background-size: 40px auto, auto;
+	background-position: 10px, 0;
+    overflow: hidden; 
+    width: 250px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
 
-.tabButton:hover {
-    background: #333;
-	text-shadow: 2px 4px 5px #333, 0 0 0 #000, 2px 4px 5px #333;
-	color: rgba(0,0,0, 0.6);
-   cursor: pointer;
-   text-decoration: none !important;
-
+@-webkit-keyframes slidetounlock {
+  0% {
+    background-position: -250px 0;
+  }
+  100% {
+    background-position: 250px 0;
+  }
 }
 
