@@ -191,12 +191,15 @@
 .tabButton {
 	background: -moz-gradient(linear,left top,right top,color-stop(0, #ddd),color-stop(0.4, #fb3c4a),color-stop(0.5, #222),color-stop(0.6, #ddd),color-stop(1, #ddd));
 	background: -webkit-gradient(linear,left top,right top,color-stop(0, #000),color-stop(0.2, #fb3c4a),color-stop(0.3, #fff),color-stop(0.5, #fff),color-stop(1, #000));
+	background: gradient(linear,left top,right top,color-stop(0, #000),color-stop(0.2, #fb3c4a),color-stop(0.3, #fff),color-stop(0.5, #fff),color-stop(1, #000));
 	-moz-background-clip: text;
 	-webkit-background-clip: text;
 	-moz-text-fill-color: transparent;
 	-webkit-text-fill-color: transparent;
 	-webkit-animation: slidetounlock 4s infinite;
 	-webkit-animation-timing-function: linear;
+	-moz-animation: slidetounlock 4s infinite;
+	-moz-animation-timing-function: linear;
 	font-size: 20px;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	font-style: italic;
@@ -231,6 +234,24 @@
 }
 
 @-webkit-keyframes slidetounlock {
+  0% {
+    background-position: -250px 0;
+  }
+  100% {
+    background-position: 250px 0;
+  }
+}
+
+@-moz-keyframes slidetounlock {
+  0% {
+    background-position: -250px 0;
+  }
+  100% {
+    background-position: 250px 0;
+  }
+}
+
+@keyframes slidetounlock {
   0% {
     background-position: -250px 0;
   }
