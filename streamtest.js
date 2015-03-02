@@ -147,7 +147,7 @@ function jqueryLoaded() {
         for (var i = 0; i < globalUrlArray.length; i++) {
 
             linkfound = globalUrlArray[i];
-            streamUrlListHtml += "<a class='STLVhl' href=//www.streamtest.net/#test?streamUrl=" + linkfound + ">" + linkfound + " </a>";
+            streamUrlListHtml += "<a class='STLVhl' href=//www.streamtest.net/#tester?streamUrl=" + linkfound + ">" + linkfound + " </a>";
         }
 
         if (jQuery('#StreamTestVideoList').length === 0)
@@ -197,7 +197,7 @@ function embedStreamtestBadge() {
                 	src = "http:" + src;
 
             	if (src.indexOf("youtube") != -1 || src.indexOf("vimeo") != -1)
-                	var button = jQuery(element).after("<a href=//www.streamtest.net/#test?streamUrl=" + src + " target='_blank'><button class='tabButton' style='margin: -6px 0 0 " + leftMargin + "px'>Test this Stream</button></a>");
+                	var button = jQuery(element).after("<a href=//www.streamtest.net/#tester?streamUrl=" + src + " target='_blank'><button class='tabButton' style='margin: -6px 0 0 " + leftMargin + "px'>Test this Stream</button></a>");
 
 		}
         });
@@ -225,7 +225,7 @@ function embedStreamtestBadge() {
                     if (sanitizedUrl.substring(sanitizedUrl.length - "&quot".length) == "&quot")
                         sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - "&quot".length);
 
-                    jQuery(element).after("<a href=//www.streamtest.net/#test?streamUrl=" + sanitizedUrl + " target='_blank'><button class='tabButton' style='margin: -6px 0 0 " + leftMargin + "px'>Test Stream</button></a>")
+                    jQuery(element).after("<a href=//www.streamtest.net/#tester?streamUrl=" + sanitizedUrl + " target='_blank'><button class='tabButton' style='margin: -6px 0 0 " + leftMargin + "px'>Test Stream</button></a>")
                 }
             }
         });
