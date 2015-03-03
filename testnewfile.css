@@ -189,7 +189,7 @@
 
 
 .tabButton {
-	font-size: 18px;
+	font-size: 14px;
 	font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
 	text-transform: uppercase;
 	font-style: italic;
@@ -202,7 +202,7 @@
 	background: url(https://streamtest.github.io/badges/streamtestgauge.png) no-repeat left center, #1b1e24;
 	background-size: 40px auto, auto;
 	background-position: 10px, 0;
-	margin: -6px 0 0 490px;
+	margin: -6px 0 0 420px;
 	height: 30px;
     overflow: hidden; 
     width: 200px;
