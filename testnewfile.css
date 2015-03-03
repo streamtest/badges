@@ -202,10 +202,10 @@
 	background: url(https://streamtest.github.io/badges/streamtestgauge.png) no-repeat left center, #1b1e24;
 	background-size: 40px auto, auto;
 	background-position: 10px, 0;
-	margin: -6px 0 0 370px;
-	height: 40px;
+	margin: -6px 0 0 490px;
+	height: 30px;
     overflow: hidden; 
-    width: 250px;
+    width: 200px;
 	border-bottom-right-radius: 10px;
 	border-bottom-left-radius: 10px;
 }
