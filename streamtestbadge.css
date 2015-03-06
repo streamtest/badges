@@ -189,9 +189,8 @@
 
 .buttonLink {
 	text-decoration: none !important;
-	display: block;
 	width: 100%;
-	overflow-y: hidden;
+	overflow: hidden;
 	margin: -7px 0 0 0;
 }
 
