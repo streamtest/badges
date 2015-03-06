@@ -191,7 +191,7 @@
 	text-decoration: none !important;
 	display: block;
 	width: 100%;
-	overflow: hidden;
+	overflow-y: hidden;
 	margin: -7px 0 0 0;
 }
 
