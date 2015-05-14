@@ -191,7 +191,8 @@
 	text-decoration: none !important;
 	width: 100%;
 	overflow: hidden;
-	margin: 0;
+	display: block;
+	margin: -4px 0 0 0;
 }
 
 .tabButton {
@@ -210,8 +211,17 @@
 	background-position: 5px, 0;
 	height: 30px;
     overflow: hidden; 
-    width: 160px;
+	float: right;
+    width: 40px;
 	border-bottom-right-radius: 10px;
 	border-bottom-left-radius: 10px;
+	transition: width 0.5s ease;
+	-webkit-transition: width 0.5s ease;
+	-moz-transition: width 0.5s ease;
+	-ms-transition: width 0.5s ease;
+}
+
+.streamButton:hover {
+    width: 160px;
 }
 

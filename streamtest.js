@@ -191,15 +191,16 @@ function embedStreamtestBadge() {
             
             if (src) {
             
-            	var leftMargin = parseInt(jQuery(element).width()) - 160;
+            	var leftMargin = (parseInt(jQuery(element).parent().width()) - parseInt(jQuery(element).width()))/2;
 
             	if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1)
                 	src = "http:" + src;
 
             	if (src.indexOf("youtube") != -1 || src.indexOf("vimeo") != -1)
-                	var button = jQuery(element).after("<a class='buttonLink' href=//www.streamtest.net/#test?streamUrl=" + src + " target='_blank'><svg class='streamButton' style='margin: -9px 0 0 " + leftMargin +"px;'><text id='start' class='tabButton' x='38px' y='19px' fill='url(#pattern)'>Test this Stream</text><defs><linearGradient id='gradient' x1='0%' y1='0%' x2='100%' y2='0'><stop offset='0%' style='stop-color:#000;'/><stop offset='10%' style='stop-color:#fb3c4a;'/><stop offset='30%' style='stop-color:#fff;'/><stop offset='50%' style='stop-color:#fff;'/><stop offset='100%' style='stop-color:#000;'/></linearGradient><pattern id='pattern' x='0' y='0' width='300%' height='100%' patternUnits='userSpaceOnUse'><rect x='0' y='0' width='150%' height='100%' fill='url(#gradient)'><animate id='id1' attributeName='x' from='0' to='150%' dur='4s'  begin='1;id1.end+5' repeatCount='2' fill='freeze'/></rect><rect x='-150%' y='0' width='150%' height='100%' fill='url(#gradient)'><animate id='id2' attributeName='x'from='-150%' to='0' dur='4s' begin='1;id1.end+5' repeatCount='2' fill='freeze'/></rect></pattern></defs></svg></a>");
+                	var button = jQuery(element).after("<a class='buttonLink' href=//www.streamtest.net/#test?streamUrl=" + src + " target='_blank'><svg class='streamButton' style='margin: 0 " + leftMargin + "px 0 0 ;'><text id='start' class='tabButton' x='38px' y='19px' fill='url(#pattern)'>Test this Stream</text><defs><linearGradient id='gradient' x1='0%' y1='0%' x2='100%' y2='0'><stop offset='0%' style='stop-color:#000;'/><stop offset='10%' style='stop-color:#fb3c4a;'/><stop offset='30%' style='stop-color:#fff;'/><stop offset='50%' style='stop-color:#fff;'/><stop offset='100%' style='stop-color:#000;'/></linearGradient><pattern id='pattern' x='0' y='0' width='300%' height='100%' patternUnits='userSpaceOnUse'><rect x='0' y='0' width='150%' height='100%' fill='url(#gradient)'><animate id='id1' attributeName='x' from='0' to='150%' dur='4s'  begin='1;id1.end+5' repeatCount='2' fill='freeze'/></rect><rect x='-150%' y='0' width='150%' height='100%' fill='url(#gradient)'><animate id='id2' attributeName='x'from='-150%' to='0' dur='4s' begin='1;id1.end+5' repeatCount='2' fill='freeze'/></rect></pattern></defs></svg></a>");
 		}
         });
+		
 
         jQuery("object").each(function (index, element) {
             var type = jQuery(element).attr('type');
