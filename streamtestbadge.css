@@ -189,10 +189,16 @@
 
 .buttonLink {
 	text-decoration: none !important;
+	position: relative;
 	width: 100%;
 	overflow: hidden;
 	display: block;
-	margin: -9px 0 0 0;
+	margin: -4px 0 0 0;
+}
+
+.streamtestResponsiveBadge {
+	position: absolute !important;
+	bottom: -30px;
 }
 
 .tabButton {
