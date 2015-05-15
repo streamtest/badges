@@ -213,6 +213,9 @@
 	background-size: 30px auto, auto;
 	background-position: 5px, 0;
 	height: 10px;
+	border-right: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 	padding: 10px;
 	white-space: nowrap;
 	text-indent: 30px;
