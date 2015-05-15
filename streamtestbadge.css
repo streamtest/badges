@@ -201,24 +201,24 @@
 	bottom: -30px;
 }
 
-.tabButton {
+.streamButton {
+    padding: 0;
+	background: url(https://streamtest.github.io/badges/streamtestgaugebold.png) no-repeat left center, #f5f5f5;
 	font-size: 12px;
 	font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
 	text-transform: uppercase;
 	font-style: italic;
-	line-height: 1;
-	
-}
-
-.streamButton {
-    padding: 0;
-	background: url(https://streamtest.github.io/badges/streamtestgaugebold.png) no-repeat left center, #1b1e24;
+	line-height: 0.9;
+	color: #333;
 	background-size: 30px auto, auto;
 	background-position: 5px, 0;
-	height: 30px;
+	height: 10px;
+	padding: 10px;
+	white-space: nowrap;
+	text-indent: 30px;
     overflow: hidden; 
 	float: right;
-    width: 40px;
+    width: 20px;
 	border-bottom-right-radius: 10px;
 	border-bottom-left-radius: 10px;
 	transition: width 0.5s ease;
@@ -228,6 +228,6 @@
 }
 
 .streamButton:hover {
-    width: 160px;
+    width: 150px;
 }
 
