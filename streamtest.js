@@ -24,7 +24,7 @@ function getStreamTestVideoList() {
     return "<div id='StreamTestVideoList' >" +
 	"<a><button id='StreamTestClose'>x</button></a>" +
 	"<div id='STVLHeader'>" +
-	"<img class=\"STVL_logo\" src=\"http://www.streamtest.net/content/img/logo.png\" /><br/><br/>" +
+	"<img class=\"STVL_logo\" src=\"http://www.streamtest.net/Content/img/streamtestlogowhite.png\" /><br/><br/>" +
 	"<div id='STVLhd'><span>We have detected the following streams on this page, which one would you like to test?</span><br/>" +
 	"</div>" +
 	"</div>" + '<p id="presetStreamUrlsMsg">' + window.location.host + ' is offering the following streams for testing: </p>' +
