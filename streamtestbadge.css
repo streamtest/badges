@@ -187,13 +187,14 @@
 	text-shadow: 0 0 7px #000000;
 }
 
-.buttonLink {
+.streamtestButtonLink {
 	text-decoration: none !important;
 	position: relative;
 	width: 100%;
 	overflow: hidden;
 	display: block;
 	margin: 0;
+	z-index: 99999;
 }
 
 .streamtestResponsiveBadge {
