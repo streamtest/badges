@@ -219,7 +219,12 @@ function embedStreamtestBadge() {
 
         jQuery("object").each(function (index, element) {
             var type = jQuery(element).attr('type');
-            var leftMargin = parseInt(jQuery(element).width()) - 159;
+            var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
+			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
+			var parentWidth= jQuery(element).parent().width();
+			var percentPadding = Math.round((responsive/parentWidth) * 100);
+			
+			var buttonWidth = parseInt(jQuery(element).width());
 
             if (type === "application/x-shockwave-flash") {
 
@@ -240,7 +245,12 @@ function embedStreamtestBadge() {
                     if (sanitizedUrl.substring(sanitizedUrl.length - "&quot".length) == "&quot")
                         sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - "&quot".length);
 
-                    jQuery(element).after("<a href=//www.streamtest.net/tester?streamUrl=" + sanitizedUrl + " target='_blank'><button class='tabButton' style='width: " + buttonWidth + "px; margin: -6px 0 0 0;'>Test Stream</button></a>")
+                    jQuery(element).after("<a id='streamtestBadgeLink' class='buttonLink' style='width: " + buttonWidth + "px;' href=//www.streamtest.net/tester?streamUrl=" + sanitizedUrl + " target='_blank'><span class='streamButton' >Test This Stream</button></span></a>")
+					
+					if(percentPadding == '56' && responsiveHeight == '0') {
+						jQuery('#streamtestBadgeLink').addClass('streamtestResponsiveBadge');
+						jQuery(element).parent().css("overflow", "visible");
+					}
                 }
             }
         });
