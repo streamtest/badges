@@ -203,7 +203,6 @@
 }
 
 .streamButton {
-    padding: 0;
 	background: url(https://streamtest.github.io/badges/streamtestgaugebold.png) no-repeat left center, #f5f5f5;
 	font-size: 12px;
 	font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
@@ -217,6 +216,9 @@
 	border-right: 1px solid #ccc;
 	border-left: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
 	padding: 10px;
 	white-space: nowrap;
 	text-indent: 30px;
