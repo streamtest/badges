@@ -195,6 +195,7 @@ function embedStreamtestBadge() {
 			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
 			var parentWidth= jQuery(element).parent().width();
 			var percentPadding = Math.round((responsive/parentWidth) * 100);
+			var videoPosition = jQuery(element).css("position");
 		
 			
             if (src) {
@@ -209,7 +210,7 @@ function embedStreamtestBadge() {
             	if (src.indexOf("youtube") != -1 || src.indexOf("vimeo") != -1)
                 	var button = jQuery(element).after("<a class='streamtestButtonLink' style='width:" + buttonWidth +"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
 				
-				if (percentPadding == '56' && responsiveHeight == '0') {
+				if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
 					jQuery('.streamtestButtonLink').addClass('streamtestResponsiveBadge');
 					jQuery(element).parent().css("overflow", "visible");
 				}
@@ -223,6 +224,7 @@ function embedStreamtestBadge() {
 			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
 			var parentWidth= jQuery(element).parent().width();
 			var percentPadding = Math.round((responsive/parentWidth) * 100);
+			var videoPosition = jQuery(element).css("position");
 			
 			var buttonWidth = parseInt(jQuery(element).width());
 
@@ -247,7 +249,7 @@ function embedStreamtestBadge() {
 
                     jQuery(element).after("<a class='streamtestButtonLink' style='width: " + buttonWidth + "px;' href=//www.streamtest.net/tester?streamUrl=" + sanitizedUrl + " target='_blank'><span class='streamButton' >Test This Stream</button></span></a>")
 					
-					if (percentPadding == '56' && responsiveHeight == '0') {
+					if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
 						jQuery('.streamtestButtonLink').addClass('streamtestResponsiveBadge');
 						jQuery(element).parent().css("overflow", "visible");
 					}
