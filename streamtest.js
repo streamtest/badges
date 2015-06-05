@@ -193,6 +193,7 @@ function embedStreamtestBadge() {
 			if (typeof src === 'undefined') {
 				var src = $('iframe').contents().find('video').attr('src');
 			}
+			console.log(src);
 			var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
 			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
 			var parentWidth= jQuery(element).parent().width();
@@ -205,11 +206,17 @@ function embedStreamtestBadge() {
 				// Check for "undefined" first, set to 0 by default
 				var buttonWidth = parseInt(jQuery(element).width());
 
-            	if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1)
-                	src = "http:" + src;
+            	if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1) {
+					src = "http:" + src;
+				}
+                	
 
-            	if (src.indexOf("youtube") != -1 || src.indexOf("vimeo") != -1)
-                	var button = jQuery(element).after("<a class='streamtestButtonLink' style='width:" + buttonWidth +"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+            	if (src.indexOf("youtube") != -1 || src.indexOf("vimeo") != -1) {
+					
+				}
+					
+				var button = jQuery(element).after("<a class='streamtestButtonLink' style='width:" + buttonWidth +"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+                	
 				
 				if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
 					jQuery('.streamtestButtonLink').addClass('streamtestResponsiveBadge');
