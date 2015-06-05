@@ -221,6 +221,10 @@ function embedStreamtestBadge() {
 					jQuery('.streamtestButtonLink').addClass('streamtestResponsiveBadge');
 					jQuery(element).parent().css("overflow", "visible");
 				}
+				
+				if (jQuery(element).attr('src') === 'undefined') {
+					jQuery('.streamtestButtonLink').css('position', 'absolute');
+				}
 		}
         });
 		
