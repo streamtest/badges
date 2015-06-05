@@ -222,7 +222,7 @@ function embedStreamtestBadge() {
 					jQuery(element).parent().css("overflow", "visible");
 				}
 				
-				if (jQuery(element).attr('src') === 'undefined') {
+				if (typeof jQuery(element).attr('src') === 'undefined') {
 					jQuery('.streamtestButtonLink').css('position', 'absolute');
 				}
 		}
