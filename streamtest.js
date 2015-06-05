@@ -193,7 +193,6 @@ function embedStreamtestBadge() {
 			if (typeof src === 'undefined') {
 				var src = $('iframe').contents().find('video').attr('src');
 			}
-			console.log(src);
 			var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
 			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
 			var parentWidth= jQuery(element).parent().width();
