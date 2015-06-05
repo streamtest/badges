@@ -190,7 +190,9 @@ function embedStreamtestBadge() {
 
         jQuery("iframe").each(function (index, element) {
             var src = jQuery(element).attr('src');
-			
+			if (typeof src === 'undefined') {
+				var src = $('iframe').contents().find('video').attr('src');
+			}
 			var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
 			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
 			var parentWidth= jQuery(element).parent().width();
@@ -200,7 +202,6 @@ function embedStreamtestBadge() {
 			
             if (src) {
 				
-            
 				// Check for "undefined" first, set to 0 by default
 				var buttonWidth = parseInt(jQuery(element).width());
 
