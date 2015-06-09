@@ -191,8 +191,9 @@ function embedStreamtestBadge() {
         jQuery("iframe").each(function (index, element) {
             var src = jQuery(element).attr('src');
 			if (typeof src === 'undefined') {
-				var src = $('iframe').contents().find('video').attr('src');
+				var src = jQuery(element).contents().find('video').attr('src');
 			}
+			console.log(src);
 			var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
 			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
 			var parentWidth= jQuery(element).parent().width();
@@ -204,6 +205,10 @@ function embedStreamtestBadge() {
 				
 				// Check for "undefined" first, set to 0 by default
 				var buttonWidth = parseInt(jQuery(element).width());
+				
+				if(buttonWidth < 180) {
+					return true;
+				}
 
             	if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1) {
 					src = "http:" + src;
@@ -218,12 +223,12 @@ function embedStreamtestBadge() {
                 	
 				
 				if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
-					jQuery('.streamtestButtonLink').addClass('streamtestResponsiveBadge');
+					jQuery(element).next('.streamtestButtonLink').addClass('streamtestResponsiveBadge');
 					jQuery(element).parent().css("overflow", "visible");
 				}
 				
 				if (typeof jQuery(element).attr('src') === 'undefined') {
-					jQuery('.streamtestButtonLink').css('position', 'absolute');
+					jQuery(element).next('.streamtestButtonLink').css('position', 'absolute');
 				}
 		}
         });
