@@ -38,7 +38,7 @@ if (!window.jQuery) {
 }
 
 
-//include("https://streamtest.github.io/badges/streamtestbadge.css", "css");
+include("https://streamtest.github.io/badges/streamtestbadge.css", "css");
 
 
 function jqueryLoaded() {
