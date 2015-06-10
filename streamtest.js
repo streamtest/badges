@@ -187,6 +187,8 @@ function jqueryLoaded() {
 }
 function embedStreamtestBadge() {
     jQuery(document).ready(function () {
+		
+		var providers = ["youtube.com", "youtu.be", "vimeo.com", "netflix.com", "screen.yahoo", "dailymotion.com", "hulu.com", "vube.com", "twitch.tv", "liveleak.com", "vine.co", "ustream.com", "break.com", "tv.com"];
 
         jQuery("iframe").each(function (index, element) {
             var src = jQuery(element).attr('src');
@@ -201,35 +203,37 @@ function embedStreamtestBadge() {
 		
 			
             if (src) {
-				
-				// Check for "undefined" first, set to 0 by default
+			
 				var buttonWidth = parseInt(jQuery(element).width());
-				
-				if(buttonWidth < 180) {
-					return true;
-				}
 
             	if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1) {
 					src = "http:" + src;
 				}
                 	
+				for (i = 0; i < providers.length; i++) {
 
-            	if (src.indexOf("youtube") != -1 || src.indexOf("vimeo") != -1) {
-					
-				}
-					
-				var button = jQuery(element).after("<a class='streamtestButtonLink' style='width:" + buttonWidth +"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-                	
+					if ( src.indexOf(providers[i]) != -1 ) {
+						
+						console.log("true");
+						
+						jQuery(element).after("<a class='streamtestButtonLink' style='width:" + buttonWidth +"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+						
+						if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
+							jQuery(element).next('.streamtestButtonLink').addClass('streamtestResponsiveBadge');
+							jQuery(element).parent().css("overflow", "visible");
+						}
+						
+						if (typeof jQuery(element).attr('src') === 'undefined') {
+							jQuery(element).next('.streamtestButtonLink').css('position', 'absolute');
+						}
+					} else {
+						return true;
+					}
 				
-				if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
-					jQuery(element).next('.streamtestButtonLink').addClass('streamtestResponsiveBadge');
-					jQuery(element).parent().css("overflow", "visible");
 				}
+					
 				
-				if (typeof jQuery(element).attr('src') === 'undefined') {
-					jQuery(element).next('.streamtestButtonLink').css('position', 'absolute');
-				}
-		}
+			}
         });
 		
 
