@@ -38,7 +38,7 @@ if (!window.jQuery) {
 }
 
 
-include("https://streamtest.github.io/badges/streamtestbadge.css", "css");
+//include("https://streamtest.github.io/badges/streamtestbadge.css", "css");
 
 
 function jqueryLoaded() {
@@ -200,11 +200,18 @@ function embedStreamtestBadge() {
 			var parentWidth= jQuery(element).parent().width();
 			var percentPadding = Math.round((responsive/parentWidth) * 100);
 			var videoPosition = jQuery(element).css("position");
+			
+			var leftOffset = jQuery(element).offset().left;
+			
+			var elementWidth = jQuery(element).width();
+			
+			var elementHeight = jQuery(element).height();
+			
+			var documentWidth = jQuery(document).width();
+
 		
 			
             if (src) {
-			
-				var buttonWidth = parseInt(jQuery(element).width());
 
             	if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1) {
 					src = "http:" + src;
@@ -214,18 +221,16 @@ function embedStreamtestBadge() {
 
 					if ( src.indexOf(providers[i]) != -1 ) {
 						
-						console.log("true");
-						
-						jQuery(element).after("<a class='streamtestButtonLink' style='width:" + buttonWidth +"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-						
 						if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
-							jQuery(element).next('.streamtestButtonLink').addClass('streamtestResponsiveBadge');
-							jQuery(element).parent().css("overflow", "visible");
+							var buttonOffset = '-1';
+							var topOffset = '43%';
+							jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+						} else {
+							var buttonOffset = documentWidth - (leftOffset + elementWidth);
+							var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
+							jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
 						}
-						
-						if (typeof jQuery(element).attr('src') === 'undefined') {
-							jQuery(element).next('.streamtestButtonLink').css('position', 'absolute');
-						}
+
 					} else {
 						return true;
 					}
