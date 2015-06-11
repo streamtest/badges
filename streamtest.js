@@ -317,7 +317,7 @@ window.observer = new MutationObserver(function() {
 		
 		
 function callObserver() {
-		window.observer.observe($('body')[0], { childList: true, subtree: true });
+		window.observer.observe(jQuery('body')[0], { childList: true, subtree: true });
 	}
 
 // create an observer instance
