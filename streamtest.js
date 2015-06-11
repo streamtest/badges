@@ -3,7 +3,6 @@ var sanitizationCharacters = ["\"", "&quot"];
 var hasjQueryLoaded = false
 var jQueryLoadCheckInterval = -1;
 var badgeMode = 2; //Badge Mode 1 = Show Badge No Auto Placement, 2 = Hide Badge Auto Placement, 3 = Show Badge Auto Placement 
-var domChange = false;
 
 function include(filename, type) {
     var head = document.getElementsByTagName('head')[0];
@@ -38,9 +37,11 @@ if (!window.jQuery) {
     include("//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", "js")
 }
 
+if (typeof(MutationObserver) != "function") {
+	include("https://streamtest.github.io/badges/mutationobserver.js", "js");
+}
 
 include("https://streamtest.github.io/badges/streamtestbadge.css", "css");
-
 
 function jqueryLoaded() {
     clearInterval(jQueryLoadCheckInterval);
@@ -187,7 +188,7 @@ function jqueryLoaded() {
     });
 }
 function embedStreamtestBadge() {
-	
+		
     jQuery(document).ready(function () {
 		
 		var providers = ["youtube.com", "youtu.be", "vimeo.com", "netflix.com", "screen.yahoo", "dailymotion.com", "hulu.com", "vube.com", "twitch.tv", "liveleak.com", "vine.co", "ustream.com", "break.com", "tv.com"];
@@ -218,6 +219,10 @@ function embedStreamtestBadge() {
             	if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1) {
 					src = "http:" + src;
 				}
+				
+				if(src.indexOf('?wmode=transparent') != -1) {
+					src = src.replace('?wmode=transparent', '');
+				}
                 	
 				for (i = 0; i < providers.length; i++) {
 
@@ -231,6 +236,10 @@ function embedStreamtestBadge() {
 							var buttonOffset = documentWidth - (leftOffset + elementWidth);
 							var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
 							jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+						}
+						
+						if( src.indexOf('youtube')  || src.indexOf('youtu.be') )  {
+							jQuery(element).attr('src', src+"?wmode=transparent");
 						}
 
 					} else {
@@ -291,21 +300,45 @@ function embedStreamtestBadge() {
                 }
             }
         });
-		
-
     });
+	
 }
 
-function checkJquery() {
-    if (window.jQuery) {
-        hasjQueryLoaded = true;
-        clearInterval(jQueryLoadCheckInterval);
-        jqueryLoaded();
-        if (badgeMode != 1)
-            embedStreamtestBadge();
-    }
 
-    if (!hasjQueryLoaded && jQueryLoadCheckInterval == -1)
-        jQueryLoadCheckInterval = window.setInterval(checkJquery, 100);
-}
-checkJquery();
+	
+// MUTATION OBSERVER
+window.observer = new MutationObserver(function() {
+	observer.disconnect();
+	console.log('run');
+	jQuery('.streamtestButtonLink').remove();
+	embedStreamtestBadge();
+	callObserver();
+});
+		
+		
+function callObserver() {
+		window.observer.observe($('body')[0], { childList: true, subtree: true });
+	}
+
+// create an observer instance
+
+$(function() {
+
+	
+
+	function checkJquery() {
+		if (window.jQuery) {
+			hasjQueryLoaded = true;
+			clearInterval(jQueryLoadCheckInterval);
+			jqueryLoaded();
+			if (badgeMode != 1)
+				embedStreamtestBadge();
+		}
+
+		if (!hasjQueryLoaded && jQueryLoadCheckInterval == -1)
+			jQueryLoadCheckInterval = window.setInterval(checkJquery, 100);
+	}
+	checkJquery();
+	callObserver();
+	
+});
