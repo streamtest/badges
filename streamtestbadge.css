@@ -235,7 +235,7 @@
 }
 
 .streamButton:before {
-	content: url(file:///C:/Users/David/Desktop/Streamtest/badgeicon.png);
+	content: url(https://streamtest.github.io/badges/badgeicon.png);
 	font-size: 30px;
 	position: absolute;
 	top: 2px;
