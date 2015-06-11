@@ -198,7 +198,8 @@
 
 
 .streamButton {
-	background: url(https://streamtest.github.io/badges/streamtestgaugebold.png) no-repeat left center, #f5f5f5;
+	background: url(https://streamtest.github.io/badges/streamtestgaugebold.png) no-repeat left center;
+	background-color: rgba(245, 245, 245, 0.5);
 	font-size: 12px;
 	font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
 	text-transform: uppercase;
@@ -206,7 +207,7 @@
 	line-height: 1.9;
 	color: #333;
 	background-size: 30px auto, auto;
-	background-position: 5px, 0;
+	background-position: 10px, 0;
 	height: 20px;
 	border-top: 1px solid #ccc;
 	border-left: 1px solid #ccc;
@@ -214,13 +215,12 @@
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
 	box-sizing: content-box;
-	padding: 15px 5px;
+	padding: 16px 5px;
 	white-space: nowrap;
-	text-indent: 32px;
-	opacity: 0.5;
+	text-indent: 42px;
     overflow: hidden; 
 	float: right;
-    width: 0;
+    width: 3px;
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
 	transition: width 0.5s ease;
@@ -230,7 +230,24 @@
 }
 
 .streamButton:hover {
-    width: 150px;
-	opacity: 1;
+    width: 160px;
+	background-color: rgba(245, 245, 245, 1);
 }
 
+.streamButton:before {
+	content: url(file:///C:/Users/David/Desktop/Streamtest/badgeicon.png);
+	font-size: 30px;
+	position: absolute;
+	top: 2px;
+	color: #fff;
+	left: -37px;
+	opacity: 0.7;
+	transition: opacity 0.4s ease;
+	-webkit-transition: opacity 0.4s ease;
+	-moz-transition: opacity 0.4s ease;
+	-ms-transition: opacity 0.4s ease;
+}
+
+.streamButton:hover:before {
+    opacity: 0;
+}
