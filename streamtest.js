@@ -292,14 +292,7 @@ function embedStreamtestBadge() {
             }
         });
 		
-			jQuery('body').on("DOMSubtreeModified", function() {
-				if (!domChange) {
-					domChange = true;
-					jQuery('.streamtestButtonLink').remove();
-					embedStreamtestBadge();
-					domChange = false;
-				}
-			});
+
     });
 }
 
