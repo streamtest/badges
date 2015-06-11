@@ -297,7 +297,6 @@ function embedStreamtestBadge() {
 					domChange = true;
 					jQuery('.streamtestButtonLink').remove();
 					embedStreamtestBadge();
-					console.log('sup');
 					domChange = false;
 				}
 			});
