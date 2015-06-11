@@ -3,6 +3,7 @@ var sanitizationCharacters = ["\"", "&quot"];
 var hasjQueryLoaded = false
 var jQueryLoadCheckInterval = -1;
 var badgeMode = 2; //Badge Mode 1 = Show Badge No Auto Placement, 2 = Hide Badge Auto Placement, 3 = Show Badge Auto Placement 
+var domChange = false;
 
 function include(filename, type) {
     var head = document.getElementsByTagName('head')[0];
@@ -186,6 +187,7 @@ function jqueryLoaded() {
     });
 }
 function embedStreamtestBadge() {
+	
     jQuery(document).ready(function () {
 		
 		var providers = ["youtube.com", "youtu.be", "vimeo.com", "netflix.com", "screen.yahoo", "dailymotion.com", "hulu.com", "vube.com", "twitch.tv", "liveleak.com", "vine.co", "ustream.com", "break.com", "tv.com"];
@@ -289,6 +291,16 @@ function embedStreamtestBadge() {
                 }
             }
         });
+		
+			jQuery('body').on("DOMSubtreeModified", function() {
+				if (!domChange) {
+					domChange = true;
+					jQuery('.streamtestButtonLink').remove();
+					embedStreamtestBadge();
+					console.log('sup');
+					domChange = false;
+				}
+			});
     });
 }
 
