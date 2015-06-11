@@ -322,7 +322,7 @@ function callObserver() {
 
 // create an observer instance
 
-$(function() {
+jQuery(document).ready(function () {
 
 	
 
