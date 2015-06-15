@@ -324,21 +324,20 @@ function callObserver() {
 
 jQuery(document).ready(function () {
 
-	
-
-	function checkJquery() {
-		if (window.jQuery) {
-			hasjQueryLoaded = true;
-			clearInterval(jQueryLoadCheckInterval);
-			jqueryLoaded();
-			if (badgeMode != 1)
-				embedStreamtestBadge();
-		}
-
-		if (!hasjQueryLoaded && jQueryLoadCheckInterval == -1)
-			jQueryLoadCheckInterval = window.setInterval(checkJquery, 100);
-	}
-	checkJquery();
 	callObserver();
 	
 });
+
+function checkJquery() {
+	if (window.jQuery) {
+		hasjQueryLoaded = true;
+		clearInterval(jQueryLoadCheckInterval);
+		jqueryLoaded();
+		if (badgeMode != 1)
+			embedStreamtestBadge();
+	}
+
+	if (!hasjQueryLoaded && jQueryLoadCheckInterval == -1)
+		jQueryLoadCheckInterval = window.setInterval(checkJquery, 100);
+}
+checkJquery();
