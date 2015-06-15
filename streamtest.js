@@ -338,13 +338,6 @@ function callObserver() {
 		window.observer.observe(jQuery('body')[0], { childList: true, subtree: true });
 	}
 
-// create an observer instance
-
-jQuery(document).ready(function () {
-
-	callObserver();
-	
-});
 
 function checkJquery() {
 	if (window.jQuery) {
@@ -352,6 +345,7 @@ function checkJquery() {
 		clearInterval(jQueryLoadCheckInterval);
 		jqueryLoaded();
 		if (badgeMode != 1)
+			callObserver();
 			embedStreamtestBadge();
 	}
 
