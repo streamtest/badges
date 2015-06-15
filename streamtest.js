@@ -21,17 +21,7 @@ function include(filename, type) {
     }
 }
 function getStreamTestVideoList() {
-    return "<div id='StreamTestVideoList' >" +
-	"<a><button id='StreamTestClose'>x</button></a>" +
-	"<div id='STVLHeader'>" +
-	"<img class=\"STVL_logo\" src=\"http://www.streamtest.net/Content/img/streamtestlogowhite.png\" /><br/><br/>" +
-	"<div id='STVLhd'><span>We have detected the following streams on this page, which one would you like to test?</span><br/>" +
-	"</div>" +
-	"</div>" + '<p id="presetStreamUrlsMsg">' + window.location.host + ' is offering the following streams for testing: </p>' +
-	"<div id='STVLBody'>" +
-	"</div><div id=\"STVLFooter\">&copy; StreamTest.net All Rights Reserved</div>" +
-	"</div>" +
-	"<div id='StreamTestBackground'></div>"
+    return "<div id='StreamTestVideoList'><a><button id='StreamTestClose'>x</button></a><div id='STVLHeader'><img class=\"STVL_logo\" src=\"http://www.streamtest.net/Content/img/streamtestlogowhite.png\" /><br/><br/><div id='STVLhd'><span>We have detected the following streams on this page, which one would you like to test?</span><br/></div></div><div id='STVLBody'></div><div id=\"STVLFooter\">&copy; StreamTest.net All Rights Reserved</div></div><div id='StreamTestBackground'></div>"
 }
 if (!window.jQuery) {
     include("//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", "js");
@@ -176,12 +166,12 @@ function jqueryLoaded() {
                 disablePopup();
             }
         });
-
-        jQuery('#streamtestBadge').click(function (e) {
-            centerPopup();
+		
+		jQuery('a[href^="http://www.streamtest.net/#badges"]').click(function(event) {
+			event.preventDefault();
+			centerPopup();
             loadPopup();
-            e.preventDefault();
-        });
+		});
 
         if (badgeMode === 2)
             hideBadge();
@@ -335,8 +325,10 @@ window.observer = new MutationObserver(function() {
 		
 		
 function callObserver() {
+	jQuery(document).ready(function () {
 		window.observer.observe(jQuery('body')[0], { childList: true, subtree: true });
-	}
+	});
+}
 
 
 function checkJquery() {
