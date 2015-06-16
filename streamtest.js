@@ -186,7 +186,7 @@ function embedStreamtestBadge() {
 								jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
 							}
 							
-							streamUrlListHtml += "<a class='STLVhl' href='" + src + "' target='_blank'>" + src + "</a>";
+							streamUrlListHtml += "<a class='STLVhl' href='www.streamtest.net/tester?streamUrl=" + src + "' target='_blank'>" + src + "</a>";
 							
 							if( src.indexOf('youtube')  || src.indexOf('youtu.be') )  {
 								jQuery(element).attr('src', src+"?wmode=transparent");
@@ -210,7 +210,7 @@ function embedStreamtestBadge() {
 						jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
 					}
 					
-					streamUrlListHtml += "<a class='STLVhl' href='" + src + "' target='_blank'>" + src + "</a>";
+					streamUrlListHtml += "<a class='STLVhl' href='www.streamtest.net/tester?streamUrl=" + src + "' target='_blank'>" + src + "</a>";
 					
 				}
 				
