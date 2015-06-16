@@ -1,6 +1,5 @@
-var globalUrlArray = [];
 var sanitizationCharacters = ["\"", "&quot"];
-var hasjQueryLoaded = false
+var hasjQueryLoaded = false;
 var jQueryLoadCheckInterval = -1;
 var badgeMode = 2; //Badge Mode 1 = Show Badge No Auto Placement, 2 = Hide Badge Auto Placement, 3 = Show Badge Auto Placement 
 
@@ -21,7 +20,7 @@ function include(filename, type) {
     }
 }
 function getStreamTestVideoList() {
-    return "<div id='StreamTestVideoList'><a><button id='StreamTestClose'>x</button></a><div id='STVLHeader'><img class=\"STVL_logo\" src=\"http://www.streamtest.net/Content/img/streamtestlogowhite.png\" /><br/><br/><div id='STVLhd'><span>We have detected the following streams on this page, which one would you like to test?</span><br/></div></div><div id='STVLBody'></div><div id=\"STVLFooter\">&copy; StreamTest.net All Rights Reserved</div></div><div id='StreamTestBackground'></div>"
+    return "<div id='StreamTestVideoList'><a><button id='StreamTestClose'>x</button></a><div id='STVLHeader'><img class=\"STVL_logo\" src=\"http://www.streamtest.net/Content/img/streamtestlogowhite.png\" /><br/><br/><div id='STVLhd'><span>We have detected the following streams on this page, which one would you like to test?</span><br/></div></div><div id='STVLBody'></div><div id=\"STVLFooter\">&copy; StreamTest.net All Rights Reserved</div></div><div id='StreamTestBackground'></div>";
 }
 if (!window.jQuery) {
     include("//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", "js");
@@ -80,40 +79,12 @@ function jqueryLoaded() {
 
             return sanitizedUrl;
         }
-        function findStreamUrls(regexes) {
-            for (var regexIndex = 0; regexIndex < regexes.length; regexIndex++) {
 
-                var matches = fullhtml.match(regexes[regexIndex]);
-
-                if (matches != null) {
-                    matches.forEach(function (url) {
-
-                        var sanitizedUrl = sanitizeUrl(url);
-
-                        if (sanitizedUrl.indexOf("http:") == -1 && sanitizedUrl.indexOf("https:") == -1 && sanitizedUrl.indexOf("rtmp:") == -1)
-                            sanitizedUrl = "http:" + sanitizedUrl;
-
-                        if (sanitizedUrl.match(/\//ig).length == 4) {
-                            if (globalUrlArray.indexOf(sanitizedUrl) == -1)
-                                globalUrlArray.push(sanitizedUrl);
-                        }
-                    });
-                }
-            }
-        }
         function hideBadge() {
             jQuery('#streamtestBadge').hide();
         }
 
         var fullhtml = jQuery("html").html();
-
-        var regexes = [];
-
-        //regexes.push(/(rtmp|rtsp)(:\/\/[\w-]+)(\.[\w-]+)+([\w.,@?^=%&:\/~+#-]*[\w@?^=%&~+#-])?/g);
-        regexes.push(/(http:|https:)?\/\/(www\.)?(youtube.com|youtu.be)\/(watch)?(\?v=)?(\S+)?/g);
-        regexes.push(/(http:|https:|)\/\/(player).(vimeo\.com)\/(video\/|embed\/|watch\?v=|v\/|user\/)?([A-Za-z0-9._%-]*)(\&\S+)?/g);
-
-        findStreamUrls(regexes);
 
         var flashBaseUrlRegex = /&quot;baseUrl&quot;:&quot;+([^&]*)/g;
         var flashUrlRegex = /&quot;url&quot;:&quot;+([^&]*)/g;
@@ -130,28 +101,11 @@ function jqueryLoaded() {
             if (sanitizedUrl.substring(sanitizedUrl.length - "&quot".length) == "&quot")
                 sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - "&quot".length);
 
-            if (sanitizedUrl.match(/\//ig).length == 4) {
-                if (globalUrlArray.indexOf(sanitizedUrl) == -1)
-                    globalUrlArray.push(sanitizedUrl);
-            }
-
         }
 
-        var streamUrlListHtml = "";
-        for (var i = 0; i < globalUrlArray.length; i++) {
-
-            linkfound = globalUrlArray[i];
-            streamUrlListHtml += "<a class='STLVhl' href=//www.streamtest.net/tester?streamUrl=" + linkfound + ">" + linkfound + " </a>";
-        }
-
-        if (jQuery('#StreamTestVideoList').length === 0)
+        if (jQuery('#StreamTestVideoList').length === 0) {
             jQuery(document.body).append(getStreamTestVideoList());
-
-        jQuery("#STVLBody").html(streamUrlListHtml);
-
-        jQuery('a.STLVhl').each(function () {
-            jQuery(this).attr('target', '_blank');
-        });
+			}
 
         jQuery("#StreamTestClose").click(function () {
             disablePopup();
@@ -178,8 +132,9 @@ function jqueryLoaded() {
     });
 }
 function embedStreamtestBadge() {
-		
     jQuery(document).ready(function () {
+		
+		var streamUrlListHtml = '';
 		
 		var providers = ["youtube.com", "youtu.be", "vimeo.com", "netflix.com", "screen.yahoo", "dailymotion.com", "hulu.com", "vube.com", "twitch.tv", "liveleak.com", "vine.co", "ustream.com", "break.com", "tv.com"];
 		
@@ -205,8 +160,6 @@ function embedStreamtestBadge() {
 			
 			var documentWidth = jQuery(document).width();
 
-		
-			
             if (src) {
 
             	if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1) {
@@ -233,6 +186,8 @@ function embedStreamtestBadge() {
 								jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
 							}
 							
+							streamUrlListHtml += "<a class='STLVhl' href='" + src + "' target='_blank'>" + src + "</a>";
+							
 							if( src.indexOf('youtube')  || src.indexOf('youtu.be') )  {
 								jQuery(element).attr('src', src+"?wmode=transparent");
 							}
@@ -255,8 +210,9 @@ function embedStreamtestBadge() {
 						jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
 					}
 					
-				}
+					streamUrlListHtml += "<a class='STLVhl' href='" + src + "' target='_blank'>" + src + "</a>";
 					
+				}
 				
 			}
         });
@@ -300,35 +256,41 @@ function embedStreamtestBadge() {
                     if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
 							var buttonOffset = '-1';
 							var topOffset = '43%';
-							jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+							jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href=//www.streamtest.net/tester?streamUrl=" + sanitizedUrl + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+							streamUrlListHtml += "<a class='STLVhl' href='" + sanitizedUrl + "' target='_blank'>" + sanitizedUrl + "</a>";
 						} else {
 							var buttonOffset = documentWidth - (leftOffset + elementWidth);
 							var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
-							jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+							jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href=//www.streamtest.net/tester?streamUrl=" + sanitizedUrl + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+							streamUrlListHtml += "<a class='STLVhl' href='" + sanitizedUrl + "' target='_blank'>" + sanitizedUrl + "</a>";
 						}
                 }
             }
         });
+		
+		if(streamUrlListHtml != ''){
+			jQuery("#STVLBody").html(streamUrlListHtml);
+		} else {
+			jQuery("#STVLBody").html('<p>No Videos Found.</p>');
+		}
+		
     });
 	
 }
 
+var observeComplete = false;
 
-	
-// MUTATION OBSERVER
-window.observer = new MutationObserver(function() {
-	observer.disconnect();
-	jQuery('.streamtestButtonLink').remove();
-	embedStreamtestBadge();
-	callObserver();
+$(document).bind('DOMNodeInserted', function(event) {
+	if(event.target.nodeName == 'IFRAME' || event.target.nodeName == 'OBJECT' || event.target.nodeName == 'VIDEO') {
+		console.log('run');
+		jQuery('.streamtestButtonLink').remove();
+		embedStreamtestBadge();
+	} else {
+		return false;
+	}
 });
 		
-		
-function callObserver() {
-	jQuery(document).ready(function () {
-		window.observer.observe(jQuery('body')[0], { childList: true, subtree: true });
-	});
-}
+
 
 
 function checkJquery() {
@@ -337,7 +299,6 @@ function checkJquery() {
 		clearInterval(jQueryLoadCheckInterval);
 		jqueryLoaded();
 		if (badgeMode != 1)
-			callObserver();
 			embedStreamtestBadge();
 	}
 
