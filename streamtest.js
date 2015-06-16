@@ -280,7 +280,7 @@ function embedStreamtestBadge() {
 
 var observeComplete = false;
 
-$(document).bind('DOMNodeInserted', function(event) {
+jQuery(document).bind('DOMNodeInserted', function(event) {
 	if(event.target.nodeName == 'IFRAME' || event.target.nodeName == 'OBJECT' || event.target.nodeName == 'VIDEO') {
 		console.log('run');
 		jQuery('.streamtestButtonLink').remove();
