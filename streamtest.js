@@ -280,24 +280,26 @@ function embedStreamtestBadge() {
 
 var observeComplete = false;
 
-jQuery(document).bind('DOMNodeInserted', function(event) {
-	if(event.target.nodeName == 'IFRAME' || event.target.nodeName == 'OBJECT' || event.target.nodeName == 'VIDEO') {
-		console.log('run');
-		jQuery('.streamtestButtonLink').remove();
-		embedStreamtestBadge();
-	} else {
-		return false;
-	}
-});
-		
 
 
+function checkDOM() {
+	jQuery(document).bind('DOMNodeInserted', function(event) {
+		if(event.target.nodeName == 'IFRAME' || event.target.nodeName == 'OBJECT' || event.target.nodeName == 'VIDEO') {
+			console.log('run');
+			jQuery('.streamtestButtonLink').remove();
+			embedStreamtestBadge();
+		} else {
+			return false;
+		}
+	});
+}
 
 function checkJquery() {
 	if (window.jQuery) {
 		hasjQueryLoaded = true;
 		clearInterval(jQueryLoadCheckInterval);
 		jqueryLoaded();
+		checkDOM();
 		if (badgeMode != 1)
 			embedStreamtestBadge();
 	}
