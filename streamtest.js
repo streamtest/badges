@@ -284,7 +284,7 @@ var observeComplete = false;
 
 function checkDOM() {
 	jQuery(document).bind('DOMNodeInserted', function(event) {
-		if(event.target.nodeName == 'IFRAME' || event.target.nodeName == 'OBJECT' || event.target.nodeName == 'VIDEO') {
+		if(event.target.nodeName == 'IFRAME' || event.target.nodeName == 'OBJECT' || event.target.nodeName == 'VIDEO' || event.target.nodeName == 'EMBED') {
 			console.log('run');
 			jQuery('.streamtestButtonLink').remove();
 			embedStreamtestBadge();
