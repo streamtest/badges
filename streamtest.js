@@ -186,7 +186,7 @@ function embedStreamtestBadge() {
 								jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
 							}
 							
-							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + src + "' target='_blank'>" + src + "</a>";
+							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + src + "&ref="+window.location.href+"' target='_blank'>" + src + "</a>";
 							
 							if( src.indexOf('youtube')  || src.indexOf('youtu.be') )  {
 								jQuery(element).attr('src', src+"?wmode=transparent");
@@ -210,7 +210,7 @@ function embedStreamtestBadge() {
 						jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href=//www.streamtest.net/tester?streamUrl=" + src + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
 					}
 					
-					streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + src + "' target='_blank'>" + src + "</a>";
+					streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + src + "&ref="+window.location.href+"' target='_blank'>" + src + "</a>";
 					
 				}
 				
@@ -257,12 +257,12 @@ function embedStreamtestBadge() {
 							var buttonOffset = '-1';
 							var topOffset = '43%';
 							jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href=//www.streamtest.net/tester?streamUrl=" + sanitizedUrl + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + sanitizedUrl + "' target='_blank'>" + sanitizedUrl + "</a>";
+							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + sanitizedUrl + "&ref="+window.location.href+"' target='_blank'>" + sanitizedUrl + "</a>";
 						} else {
 							var buttonOffset = documentWidth - (leftOffset + elementWidth);
 							var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
 							jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href=//www.streamtest.net/tester?streamUrl=" + sanitizedUrl + " target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + sanitizedUrl + "' target='_blank'>" + sanitizedUrl + "</a>";
+							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + sanitizedUrl + "&ref="+window.location.href+"' target='_blank'>" + sanitizedUrl + "</a>";
 						}
                 }
             }
@@ -279,8 +279,6 @@ function embedStreamtestBadge() {
 }
 
 var observeComplete = false;
-
-
 
 function checkDOM() {
 	jQuery(document).bind('DOMNodeInserted', function(event) {
