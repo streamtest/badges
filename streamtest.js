@@ -191,27 +191,40 @@ function embedStreamtestBadge() {
 							
 							if( src.indexOf('youtube')  || src.indexOf('youtu.be') )  {
 								jQuery(element).attr('src', src+"?wmode=transparent");
-							}
+							} 
 
 						} else {
-							return true;
+							console.log('nope');
+							console.log(providers[i]);
 						}
-
 					}
 				
 				} else if (srcUndefined) {
 					
-					if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
-						var buttonOffset = '-1';
-						var topOffset = '43%';
-						jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href='//www.streamtest.net/tester?streamUrl=" + encodeURIComponent(src) + "&ref="+refUrl+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-					} else {
-						var buttonOffset = documentWidth - (leftOffset + elementWidth);
-						var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
-						jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href='//www.streamtest.net/tester?streamUrl=" + encodeURIComponent(src) + "&ref="+refUrl+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-					}
+					for (i = 0; i < providers.length; i++) {
+
+						if ( src.indexOf(providers[i]) != -1 ) {
 					
-					streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + encodeURIComponent(src) + "&ref="+refUrl+"' target='_blank'>" + src + "</a>";
+							if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
+								var buttonOffset = '-1';
+								var topOffset = '43%';
+								jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href='//www.streamtest.net/tester?streamUrl=" + encodeURIComponent(src) + "&ref="+refUrl+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+							} else {
+								var buttonOffset = documentWidth - (leftOffset + elementWidth);
+								var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
+								jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href='//www.streamtest.net/tester?streamUrl=" + encodeURIComponent(src) + "&ref="+refUrl+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+							}
+							
+							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + encodeURIComponent(src) + "&ref="+refUrl+"' target='_blank'>" + src + "</a>";
+							
+							if( src.indexOf('youtube')  || src.indexOf('youtu.be') )  {
+								jQuery(element).attr('src', src+"?wmode=transparent");
+							} 
+
+						} else {
+							console.log('nope');
+						}
+					}
 					
 				}
 				
