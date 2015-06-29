@@ -136,7 +136,6 @@ function embedStreamtestBadge() {
     jQuery(document).ready(function () {
 		
 		var badgeId = jQuery('a[href^="http://www.streamtest.net/#badges"]').attr('data-site-id');
-		console.log(badgeId);
 		
 		var streamUrlListHtml = '';
 		
