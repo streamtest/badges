@@ -249,11 +249,11 @@ function embedStreamtestBadge() {
 			
 			var documentWidth = jQuery(document).width();
 			
-			if(jQuery(element).attr('wmode') == "transparent" || jQuery(element).attr('wmode') == "transparent") {
+			if(jQuery(element).attr('wmode')) {
                 
-		         } else {
-		         	jQuery(element).attr('wmode', 'transparent');
-		         }
+		        } else {
+		        	jQuery(element).attr('wmode', 'opaque');
+		        }
 
             if (type === "application/x-shockwave-flash") {
 
