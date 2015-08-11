@@ -14,8 +14,8 @@
 }
 
 #STVLHeader {
-     background: url("https://streamtest.github.io/badges/top_bg.png") repeat-x scroll left top transparent;
-     padding: 10px;
+    background: url("https://streamtest.github.io/badges/top_bg.png") repeat-x scroll left top transparent;
+    padding: 10px;
     border-radius: 2px;
 }
 #STVLBody a {
