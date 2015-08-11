@@ -1,323 +1,252 @@
-var sanitizationCharacters = ["\"", "&quot"];
-var hasjQueryLoaded = false;
-var jQueryLoadCheckInterval = -1;
-var badgeMode = 2; //Badge Mode 1 = Show Badge No Auto Placement, 2 = Hide Badge Auto Placement, 3 = Show Badge Auto Placement 
-var refUrl = encodeURIComponent(window.location.href);
-
-function include(filename, type) {
-    var head = document.getElementsByTagName('head')[0];
-    if (type == "js") {
-        var script = document.createElement('script');
-        script.src = filename;
-        script.type = 'text/javascript';
-        head.appendChild(script)
-    }
-    if (type == "css") {
-        var cs_s = document.createElement('link');
-        cs_s.href = filename;
-        cs_s.type = 'text/css';
-        cs_s.setAttribute("rel", "stylesheet");
-        head.appendChild(cs_s);
-    }
-}
-function getStreamTestVideoList() {
-    return "<div id='StreamTestVideoList'><a><button id='StreamTestClose'>x</button></a><div id='STVLHeader'><img class=\"STVL_logo\" src=\"http://www.streamtest.net/Content/img/streamtestlogowhite.png\" /><br/><br/><div id='STVLhd'><span>We have detected the following streams on this page, which one would you like to test?</span><br/></div></div><div id='STVLBody'></div><div id=\"STVLFooter\">&copy; StreamTest.net All Rights Reserved</div></div><div id='StreamTestBackground'></div>";
-}
-if (!window.jQuery) {
-    include("//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", "js");
+.STVL_logo {
+     background: none repeat scroll 0% 0% transparent;
+     display: block;
+     float: left;
+     height: 35px;
+     margin: 10px 15px 0px 6px;
+     width: auto;
 }
 
-if (typeof(MutationObserver) != "function") {
-	include("https://streamtest.github.io/badges/mutationobserver.js", "js");
+.STVLcls {
+    
 }
 
-include("https://streamtest.github.io/badges/streamtestbadge.css", "css");
-
-function jqueryLoaded() {
-    clearInterval(jQueryLoadCheckInterval);
-    jQuery(document).ready(function () {
-        var popupStatus = 0;
-
-        function loadPopup() {
-            if (popupStatus === 0) {
-
-                jQuery("#StreamTestBackground").css({
-                    "opacity": "0.7"
-                });
-
-                jQuery("#StreamTestBackground").fadeIn("slow");
-                jQuery("#StreamTestVideoList").fadeIn("slow");
-
-                if (typeof StreamTestURLS !== 'undefined' || window.location.host == "player.netromedia.com") {
-                    jQuery("#presetStreamUrlsMsg").show();
-                    jQuery("#STVLBody").css('height', '56%');
-                }
-
-                popupStatus = 1;
-            }
-        }
-        function disablePopup() {
-            if (popupStatus === 1) {
-                jQuery("#StreamTestBackground").fadeOut("slow");
-                jQuery("#StreamTestVideoList").fadeOut("slow");
-                popupStatus = 0;
-            }
-        }
-        function centerPopup() {
-            var windowWidth = document.documentElement.clientWidth;
-            var windowHeight = document.documentElement.clientHeight;
-            jQuery("#StreamTestBackground").css({
-                "height": windowHeight
-            });
-        }
-
-        function sanitizeUrl(url) {
-            var sanitizedUrl = url;
-
-            for (var sanitizationCharactersIndex = 0; sanitizationCharactersIndex < sanitizationCharacters.length; sanitizationCharactersIndex++) {
-                sanitizedUrl = sanitizedUrl.replace(sanitizationCharacters[sanitizationCharactersIndex], "");
-            }
-
-            return sanitizedUrl;
-        }
-
-        function hideBadge() {
-            jQuery('#streamtestBadge').hide();
-        }
-
-        var fullhtml = jQuery("html").html();
-
-        var flashBaseUrlRegex = /&quot;baseUrl&quot;:&quot;+([^&]*)/g;
-        var flashUrlRegex = /&quot;url&quot;:&quot;+([^&]*)/g;
-        var flashBaseUrlMatches = fullhtml.match(flashBaseUrlRegex);
-        var flashUrlMatches = fullhtml.match(flashUrlRegex);
-
-        if (flashBaseUrlMatches != null && flashUrlMatches) {
-            var url = flashBaseUrlMatches[0].replace("&quot;baseUrl&quot;:&quot;", "") + "/" + flashUrlMatches[0].replace("&quot;url&quot;:&quot;", "");
-
-            var sanitizedUrl = url;
-            if (sanitizedUrl[sanitizedUrl.length - 1] == "\"")
-                sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - 1);
-
-            if (sanitizedUrl.substring(sanitizedUrl.length - "&quot".length) == "&quot")
-                sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - "&quot".length);
-
-        }
-
-        if (jQuery('#StreamTestVideoList').length === 0) {
-            jQuery(document.body).append(getStreamTestVideoList());
-			}
-
-        jQuery("#StreamTestClose").click(function () {
-            disablePopup();
-        });
-
-        jQuery("#StreamTestBackground").click(function () {
-            disablePopup();
-        });
-
-        jQuery(document).keypress(function (e) {
-            if (e.keyCode == 27 && popupStatus == 1) {
-                disablePopup();
-            }
-        });
-		
-		jQuery('a[href^="http://www.streamtest.net/#badges"]').click(function(event) {
-			event.preventDefault();
-			centerPopup();
-            loadPopup();
-		});
-
-        if (badgeMode === 2)
-            hideBadge();
-    });
+#STVLHeader {
+     background: url("https://streamtest.github.io/badges/top_bg.png") repeat-x scroll left top transparent;
+     padding: 10px;
+    border-radius: 2px;
 }
-function embedStreamtestBadge() {
-    jQuery(document).ready(function () {
-		
-		var badgeId = jQuery('a[href^="http://www.streamtest.net/#badges"]').attr('data-site-id');
-		
-		var streamUrlListHtml = '';
-		
-		var providers = ["youtube.com", "youtu.be", "vimeo.com", "netflix.com", "screen.yahoo", "dailymotion.com", "hulu.com", "vube.com", "twitch.tv", "liveleak.com", "vine.co", "ustream.com", "break.com", "tv.com"];
-		
-		var srcUndefined = false;
-
-        jQuery("iframe").each(function (index, element) {
-            var src = jQuery(element).attr('src');
-			if (typeof src === 'undefined') {
-				var src = jQuery(element).contents().find('video').attr('src');
-				srcUndefined = true;
-			}
-			var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
-			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
-			var parentWidth= jQuery(element).parent().width();
-			var percentPadding = Math.round((responsive/parentWidth) * 100);
-			var videoPosition = jQuery(element).css("position");
-			
-			var leftOffset = jQuery(element).offset().left;
-			
-			var elementWidth = jQuery(element).width();
-			
-			var elementHeight = jQuery(element).height();
-			
-			var documentWidth = jQuery(document).width();
-
-            if (src) {
-
-            	if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1) {
-					src = "http:" + src;
-				}
-				
-				if(src.indexOf('?wmode=transparent') != -1) {
-					src = src.replace('?wmode=transparent', '');
-				}
-				
-				if(!srcUndefined) {
-                	
-					for (i = 0; i < providers.length; i++) {
-
-						if ( src.indexOf(providers[i]) != -1 ) {
-							
-							if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
-								var buttonOffset = '-1';
-								var topOffset = '43%';
-								jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href='//www.streamtest.net/tester?streamUrl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-							} else {
-								var buttonOffset = documentWidth - (leftOffset + elementWidth);
-								var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
-								jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href='//www.streamtest.net/tester?streamUrl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-							}
-							
-							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'>" + src + "</a>";
-							
-							if( src.indexOf('youtube')  || src.indexOf('youtu.be') )  {
-								jQuery(element).attr('src', src+"?wmode=transparent");
-							} 
-
-						} else {
-							console.log('nope');
-						}
-					}
-				
-				} else if (srcUndefined) {
-					
-					for (i = 0; i < providers.length; i++) {
-
-						if ( src.indexOf(providers[i]) != -1 ) {
-					
-							if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
-								var buttonOffset = '-1';
-								var topOffset = '43%';
-								jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href='//www.streamtest.net/tester?streamUrl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-							} else {
-								var buttonOffset = documentWidth - (leftOffset + elementWidth);
-								var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
-								jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href='//www.streamtest.net/tester?streamUrl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-							}
-							
-							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'>" + src + "</a>";
-							
-							if( src.indexOf('youtube')  || src.indexOf('youtu.be') )  {
-								jQuery(element).attr('src', src+"?wmode=transparent");
-							} 
-
-						} else {
-							console.log('nope');
-						}
-					}
-					
-				}
-				
-			}
-        });
-		
-
-        jQuery("object").each(function (index, element) {
-            var type = jQuery(element).attr('type');
-            var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
-			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
-			var parentWidth= jQuery(element).parent().width();
-			var percentPadding = Math.round((responsive/parentWidth) * 100);
-			var videoPosition = jQuery(element).css("position");
-			
-			var leftOffset = jQuery(element).offset().left;
-			
-			var elementWidth = jQuery(element).width();
-			
-			var elementHeight = jQuery(element).height();
-			
-			var documentWidth = jQuery(document).width();
-
-            if (type === "application/x-shockwave-flash") {
-
-                var innerHtml = jQuery(element).html();
-
-                var flashBaseUrlRegex = /&quot;baseUrl&quot;:&quot;+([^&]*)/g;
-                var flashUrlRegex = /&quot;url&quot;:&quot;+([^&]*)/g;
-                var flashBaseUrlMatches = innerHtml.match(flashBaseUrlRegex);
-                var flashUrlMatches = innerHtml.match(flashUrlRegex);
-
-                if (flashBaseUrlMatches && flashUrlMatches) {
-                    var url = flashBaseUrlMatches[0].replace("&quot;baseUrl&quot;:&quot;", "") + "/" + flashUrlMatches[0].replace("&quot;url&quot;:&quot;", "");
-
-                    var sanitizedUrl = url;
-                    if (sanitizedUrl[sanitizedUrl.length - 1] == "\"")
-                        sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - 1);
-
-                    if (sanitizedUrl.substring(sanitizedUrl.length - "&quot".length) == "&quot")
-                        sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - "&quot".length);
-
-                    if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
-							var buttonOffset = '-1';
-							var topOffset = '43%';
-							jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href=//www.streamtest.net/tester?streamUrl=" + encodeURIComponent(sanitizedUrl) + "&ref="+refUrl+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + encodeURIComponent(sanitizedUrl) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'>" + sanitizedUrl + "</a>";
-						} else {
-							var buttonOffset = documentWidth - (leftOffset + elementWidth);
-							var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
-							jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href='//www.streamtest.net/tester?streamUrl=" + encodeURIComponent(sanitizedUrl) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/tester?streamUrl=" + encodeURIComponent(sanitizedUrl) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'>" + sanitizedUrl + "</a>";
-						}
-                }
-            }
-        });
-		
-		if(streamUrlListHtml != ''){
-			jQuery("#STVLBody").html(streamUrlListHtml);
-		} else {
-			jQuery("#STVLBody").html('<p>No Videos Found.</p>');
-		}
-		
-    });
-	
+#STVLBody a {
+    background: none repeat scroll 0 0 #333333;
+    border-radius: 2px;
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0 0 1px;
+    padding: 13px;
+    text-decoration: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
-var observeComplete = false;
-
-function checkDOM() {
-	jQuery(document).bind('DOMNodeInserted', function(event) {
-		if(event.target.nodeName == 'IFRAME' || event.target.nodeName == 'OBJECT' || event.target.nodeName == 'VIDEO' || event.target.nodeName == 'EMBED') {
-			console.log('run');
-			jQuery('.streamtestButtonLink').remove();
-			embedStreamtestBadge();
-		} else {
-			return false;
-		}
-	});
+#presetStreamUrlsMsg {
+    text-align: center;
+    width: 100%;
+    display: none;
 }
 
-function checkJquery() {
-	if (window.jQuery) {
-		hasjQueryLoaded = true;
-		clearInterval(jQueryLoadCheckInterval);
-		jqueryLoaded();
-		checkDOM();
-		if (badgeMode != 1)
-			embedStreamtestBadge();
-	}
-
-	if (!hasjQueryLoaded && jQueryLoadCheckInterval == -1)
-		jQueryLoadCheckInterval = window.setInterval(checkJquery, 100);
+#STVLBody a:link, #STVLBody a:visited {
+    color: #FFFFFF !important;
 }
-checkJquery();
+
+#STVLBody a:active {
+     color: #6FA5FD;
+}
+
+#StreamTestBackground {
+     background: rgba(0,0,0,0.7);
+     border: 1px solid #CECECE;
+     display: none;
+     height: 100%;
+     left: 0px;
+     position: fixed;
+     top: 0px;
+     width: 100%;
+     z-index: 9999;
+}
+
+#StreamTestVideoList {
+     background: linear-gradient(#FFFFFF, #E5E5E5 100%) repeat scroll 0px 0px transparent;
+     border-radius: 5px;
+     display: none;
+     font-family: sans-serif;
+     font-size: 13px;
+     height: 384px;
+     position: fixed;
+     width: 408px;
+     z-index: 10000;
+     top: 50%;
+     left: 50%;
+     margin: -192px 0 0 -204px;
+     box-shadow: 0 0 15px 1px #111111;
+}
+
+#StreamTestVideoList span {
+     color: #6FA5FD;
+     font-size: 12px;
+     font-weight: 400;
+     text-align: left;
+}
+
+#STVLhd {
+     height: 40px;
+}
+
+#StreamTestClose {
+     background-color: #CA1B1F;
+     border-radius: 2px;
+     color: #FFFFFF;
+     cursor: pointer;
+     display: block;
+     font-family: Lucida Console;
+     margin: 0px 0px 0px 5px;
+     padding: 0px 4px 1px;
+     position: absolute;
+     right: 6px;
+     top: 6px;
+     vertical-align: text-top;
+}
+
+#STVLBody {
+    height: 66%;
+    margin: 5px 10px;
+    overflow: auto;
+    padding: 5px 10px;
+}
+
+#STVLBody a:hover[href*=".pls"]:after {
+    color: #CCC;
+    content: "\00ab  SHOUTCAST Stream";
+    font-size: 0.7em;
+    background: #222;
+    padding: 15px 13px 16px 14px;
+    margin: -13px -12px -14px 0;
+    vertical-align: middle;
+    letter-spacing: 1px; 
+    position: absolute; 
+    float: right;
+    white-space: nowrap;
+    right: 29px;
+    border-radius: 0 3px 3px 0;
+}
+
+#STVLBody a:hover[href*=".mov"]:after, #STVLBody a:hover[href*=".mp4"]:after, #STVLBody a:hover[href*=".flv"]:after {
+    color: #CCC;
+    content: "\00ab  On-Demand Stream";
+    font-size: 0.7em;
+    background: #222;
+    padding: 15px 13px 16px 14px;
+    margin: -13px -12px -14px 0;
+    vertical-align: middle;
+    letter-spacing: 1px; 
+    position: absolute; 
+    float: right;
+    white-space: nowrap;
+    right: 29px;
+    border-radius: 0 3px 3px 0;
+}
+
+#STVLBody a:hover[href*=".m3u8"]:after {
+    color: #CCC;
+    content: "\00ab  HLS Stream";
+    font-size: 0.7em;
+    background: #222;
+    padding: 15px 13px 16px 14px;
+    margin: -13px -12px -14px 0;
+    vertical-align: middle;
+    letter-spacing: 1px; 
+    position: absolute; 
+    float: right;
+    white-space: nowrap;
+    right: 29px;
+    border-radius: 0 3px 3px 0;
+}
+
+#STVLBody a:hover[href*="rtmp"]:after {
+    color: #CCC;
+    content: "\00ab  RTMP Stream";
+    font-size: 0.7em;
+    background: #222;
+    padding: 15px 13px 16px 14px;
+    margin: -13px -12px -14px 0;
+    vertical-align: middle;
+    letter-spacing: 1px; 
+    position: absolute; 
+    float: right;
+    white-space: nowrap;
+    right: 29px;
+    border-radius: 0 3px 3px 0;
+}
+
+
+
+#STVLFooter {
+    background: url("https://streamtest.github.io/badges/top_bg.png") repeat-x scroll left top rgba(0, 0, 0, 0);
+    border-radius: 0 0 4px 4px;
+    bottom: 0;
+    color: #CCCCCC;
+    font-size: 11px;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+	text-shadow: 0 0 7px #000000;
+}
+
+.streamtestButtonLink {
+	text-decoration: none !important;
+	position: absolute !important;
+	overflow: hidden;
+	display: block;
+	margin: 0 auto;
+	z-index: 999;
+}
+
+
+.streamButton {
+	background: url(https://streamtest.github.io/badges/streamtestgaugebold.png) no-repeat left center;
+	background-color: rgba(245, 245, 245, 0.5);
+	font-size: 12px;
+	font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+	text-transform: uppercase;
+	font-style: italic;
+	line-height: 1.9;
+	color: #333;
+	background-size: 30px auto, auto;
+	background-position: 10px, 0;
+	height: 20px;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	padding: 16px 5px;
+	white-space: nowrap;
+	text-align: left;
+	text-indent: 42px;
+    overflow: hidden; 
+	float: right;
+    width: 3px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	transition: width 0.5s ease;
+	-webkit-transition: width 0.5s ease;
+	-moz-transition: width 0.5s ease;
+	-ms-transition: width 0.5s ease;
+}
+
+.streamButton:hover {
+    width: 160px;
+	background-color: rgba(245, 245, 245, 1);
+}
+
+.streamButton:before {
+	content: url(https://streamtest.github.io/badges/badgeicon.png);
+	font-size: 30px;
+	position: absolute;
+	top:2px;
+	color: #fff;
+	left: -37px;
+	opacity: 0.7;
+	transition: opacity 0.4s ease;
+	-webkit-transition: opacity 0.4s ease;
+	-moz-transition: opacity 0.4s ease;
+	-ms-transition: opacity 0.4s ease;
+}
+
+.streamButton:hover:before {
+    opacity: 0;
+}
