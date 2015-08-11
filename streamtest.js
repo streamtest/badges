@@ -36,9 +36,92 @@
     display: none;
 }
 
+<<<<<<< HEAD
 #STVLBody a:link, #STVLBody a:visited {
     color: #FFFFFF !important;
 }
+=======
+include("https://streamtest.github.io/badges/streamtestbadge.css", "css");
+
+function jqueryLoaded() {
+    clearInterval(jQueryLoadCheckInterval);
+    jQuery(document).ready(function () {
+        var popupStatus = 0;
+
+        function loadPopup() {
+            if (popupStatus === 0) {
+
+                jQuery("#StreamTestBackground").fadeIn("slow");
+                jQuery("#StreamTestVideoList").fadeIn("slow");
+
+                if (typeof StreamTestURLS !== 'undefined' || window.location.host == "player.netromedia.com") {
+                    jQuery("#presetStreamUrlsMsg").show();
+                    jQuery("#STVLBody").css('height', '56%');
+                }
+
+                popupStatus = 1;
+            }
+        }
+        function disablePopup() {
+            if (popupStatus === 1) {
+                jQuery("#StreamTestBackground").fadeOut("slow");
+                jQuery("#StreamTestVideoList").fadeOut("slow");
+                popupStatus = 0;
+            }
+        }
+        function centerPopup() {
+            var windowWidth = document.documentElement.clientWidth;
+            var windowHeight = document.documentElement.clientHeight;
+            jQuery("#StreamTestBackground").css({
+                "height": windowHeight
+            });
+        }
+
+        function sanitizeUrl(url) {
+            var sanitizedUrl = url;
+
+            for (var sanitizationCharactersIndex = 0; sanitizationCharactersIndex < sanitizationCharacters.length; sanitizationCharactersIndex++) {
+                sanitizedUrl = sanitizedUrl.replace(sanitizationCharacters[sanitizationCharactersIndex], "");
+            }
+
+            return sanitizedUrl;
+        }
+
+        function hideBadge() {
+            jQuery('#streamtestBadge').hide();
+        }
+
+        var fullhtml = jQuery("html").html();
+
+        var flashBaseUrlRegex = /&quot;baseUrl&quot;:&quot;+([^&]*)/g;
+        var flashUrlRegex = /&quot;url&quot;:&quot;+([^&]*)/g;
+        var flashBaseUrlMatches = fullhtml.match(flashBaseUrlRegex);
+        var flashUrlMatches = fullhtml.match(flashUrlRegex);
+
+        if (flashBaseUrlMatches != null && flashUrlMatches) {
+            var url = flashBaseUrlMatches[0].replace("&quot;baseUrl&quot;:&quot;", "") + "/" + flashUrlMatches[0].replace("&quot;url&quot;:&quot;", "");
+
+            var sanitizedUrl = url;
+            if (sanitizedUrl[sanitizedUrl.length - 1] == "\"")
+                sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - 1);
+
+            if (sanitizedUrl.substring(sanitizedUrl.length - "&quot".length) == "&quot")
+                sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - "&quot".length);
+
+        }
+
+        if (jQuery('#StreamTestVideoList').length === 0) {
+            jQuery(document.body).append(getStreamTestVideoList());
+			}
+
+        jQuery("#StreamTestClose").click(function () {
+            disablePopup();
+        });
+
+        jQuery("#StreamTestBackground").click(function () {
+            disablePopup();
+        });
+>>>>>>> origin/gh-pages
 
 #STVLBody a:active {
      color: #6FA5FD;
@@ -137,6 +220,7 @@
     border-radius: 0 3px 3px 0;
 }
 
+<<<<<<< HEAD
 #STVLBody a:hover[href*=".m3u8"]:after {
     color: #CCC;
     content: "\00ab  HLS Stream";
@@ -152,6 +236,29 @@
     right: 29px;
     border-radius: 0 3px 3px 0;
 }
+=======
+        jQuery("object").each(function (index, element) {
+            var type = jQuery(element).attr('type');
+            var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
+			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
+			var parentWidth= jQuery(element).parent().width();
+			var percentPadding = Math.round((responsive/parentWidth) * 100);
+			var videoPosition = jQuery(element).css("position");
+			
+			var leftOffset = jQuery(element).offset().left;
+			
+			var elementWidth = jQuery(element).width();
+			
+			var elementHeight = jQuery(element).height();
+			
+			var documentWidth = jQuery(document).width();
+			
+			if(jQuery(element).attr('wmode')) {
+                
+		        } else {
+		        	jQuery(element).attr('wmode', 'opaque');
+		        }
+>>>>>>> origin/gh-pages
 
 #STVLBody a:hover[href*="rtmp"]:after {
     color: #CCC;
