@@ -47,7 +47,7 @@
 }
 
 #StreamTestBackground {
-     background: none repeat scroll 0% 0% #000000;
+     background: rgba(0,0,0,0.7);
      border: 1px solid #CECECE;
      display: none;
      height: 100%;
