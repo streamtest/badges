@@ -41,10 +41,6 @@ function jqueryLoaded() {
         function loadPopup() {
             if (popupStatus === 0) {
 
-                jQuery("#StreamTestBackground").css({
-                    "opacity": "0.7"
-                });
-
                 jQuery("#StreamTestBackground").fadeIn("slow");
                 jQuery("#StreamTestVideoList").fadeIn("slow");
 
