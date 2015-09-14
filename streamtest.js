@@ -130,16 +130,23 @@ function embedStreamtestBadge() {
 		var streamUrlListHtml = '';
 		
 		//White list of iframe urls (prevents badges appending to other iframes which are not video content)
-		var providers = ["youtube.com", "youtu.be", "vimeo.com", "netflix.com", "screen.yahoo", "dailymotion.com", "hulu.com", "vube.com", "twitch.tv", "liveleak.com", "vine.co", "ustream.com", "break.com", "tv.com", "youporn", "play"];
+		var providers = ["youtube.com", "youtu.be", "vimeo.com", "netflix.com", "screen.yahoo", "dailymotion.com", "hulu.com", "vube.com", "twitch.tv", "liveleak.com", "vine.co", "ustream.com", "break.com", "tv.com", "youporn", "play.php"];
 		
 		var srcUndefined = false;
 
         jQuery("iframe").each(function (index, element) {
             var src = jQuery(element).attr('src');
+            console.log(src);
 			if (typeof src === 'undefined') { //check if iframe has a source
-				var src = jQuery(element).contents().find('video').attr('src'); //find video element inside of iframe
+				    src = jQuery(element).contents().find('video').attr('src'); //find video element inside of iframe
 				srcUndefined = true;
 			}
+            
+            if(src.indexOf("play.php") != -1) {
+                src = jQuery(element).contents().find('video > source').attr('src');
+                console.log(src);
+            }
+            
             // getting parent element information to check for responsive video
 			var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
 			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
@@ -164,10 +171,6 @@ function embedStreamtestBadge() {
 				if(src.indexOf('?wmode=transparent') != -1) {
 					src = src.replace('?wmode=transparent', '');
 				}
-				
-                if(src.indexOf("play.php") != -1) {
-                    src = jQuery(element).contents().find('video > source').attr('src');
-                }
                 
 				if(!srcUndefined) {
                 	
