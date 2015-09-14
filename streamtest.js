@@ -19,6 +19,7 @@ function include(filename, type) {
         head.appendChild(cs_s);
     }
 }
+//Create video list container
 function getStreamTestVideoList() {
     return "<div id='StreamTestVideoList'><a><button id='StreamTestClose'>x</button></a><div id='STVLHeader'><img class=\"STVL_logo\" src=\"http://www.streamtest.net/Content/img/streamtestlogowhite.png\" /><br/><br/><div id='STVLhd'><span>We have detected the following streams on this page, which one would you like to test?</span><br/></div></div><div id='STVLBody'></div><div id=\"STVLFooter\">&copy; StreamTest.net All Rights Reserved</div></div><div id='StreamTestBackground'></div>";
 }
@@ -128,16 +129,18 @@ function embedStreamtestBadge() {
 		
 		var streamUrlListHtml = '';
 		
-		var providers = ["youtube.com", "youtu.be", "vimeo.com", "netflix.com", "screen.yahoo", "dailymotion.com", "hulu.com", "vube.com", "twitch.tv", "liveleak.com", "vine.co", "ustream.com", "break.com", "tv.com"];
+		//White list of iframe urls (prevents badges appending to other iframes which are not video content)
+		var providers = ["youtube.com", "youtu.be", "vimeo.com", "netflix.com", "screen.yahoo", "dailymotion.com", "hulu.com", "vube.com", "twitch.tv", "liveleak.com", "vine.co", "ustream.com", "break.com", "tv.com", "youporn", "play"];
 		
 		var srcUndefined = false;
 
         jQuery("iframe").each(function (index, element) {
             var src = jQuery(element).attr('src');
-			if (typeof src === 'undefined') {
-				var src = jQuery(element).contents().find('video').attr('src');
+			if (typeof src === 'undefined') { //check if iframe has a source
+				var src = jQuery(element).contents().find('video').attr('src'); //find video element inside of iframe
 				srcUndefined = true;
 			}
+            // getting parent element information to check for responsive video
 			var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
 			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
 			var parentWidth= jQuery(element).parent().width();
@@ -166,8 +169,9 @@ function embedStreamtestBadge() {
                 	
 					for (i = 0; i < providers.length; i++) {
 
-						if ( src.indexOf(providers[i]) != -1 ) {
+						if ( src.indexOf(providers[i]) != -1 ) { //check if src url is in white list
 							
+                            // If video is responsive
 							if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
 								var buttonOffset = '-1';
 								var topOffset = '43%';
@@ -180,7 +184,7 @@ function embedStreamtestBadge() {
 							
 							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'>" + src + "</a>";
 							
-							if( src.indexOf('youtube')  || src.indexOf('youtu.be') )  {
+							if( src.indexOf('youtube') > -1 || src.indexOf('youtu.be') > -1 )  {
 								jQuery(element).attr('src', src+"?wmode=transparent");
 							} 
 
@@ -193,8 +197,9 @@ function embedStreamtestBadge() {
 					
 					for (i = 0; i < providers.length; i++) {
 
-						if ( src.indexOf(providers[i]) != -1 ) {
-					
+						if ( src.indexOf(providers[i]) != -1 ) { //check if src url is in white list
+					       
+                           // If video is responsive
 							if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
 								var buttonOffset = '-1';
 								var topOffset = '43%';
@@ -202,13 +207,13 @@ function embedStreamtestBadge() {
 							} else {
 								var buttonOffset = documentWidth - (leftOffset + elementWidth);
 								var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
-								jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href='//www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+								jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href='//www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>"); //append to video list
 							}
 							
 							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'>" + src + "</a>";
 							
-							if( src.indexOf('youtube')  || src.indexOf('youtu.be') )  {
-								jQuery(element).attr('src', src+"?wmode=transparent");
+							if( src.indexOf('youtube') > -1 || src.indexOf('youtu.be') > -1)  {
+								jQuery(element).attr('src', src+"?wmode=transparent"); //prevents badge from hiding behind video
 							} 
 
 						} else {
