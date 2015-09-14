@@ -166,7 +166,7 @@ function embedStreamtestBadge() {
 				}
 				
                 if(src.indexOf("play.php") != -1) {
-                    src = jQuery(element).contents().find('video').attr('src');
+                    src = jQuery(element).contents().find('video > source').attr('src');
                 }
                 
 				if(!srcUndefined) {
