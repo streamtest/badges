@@ -141,7 +141,92 @@ function embedStreamtestBadge() {
 				srcUndefined = true;
 			}
             
-            
+            function addIframeBadges() {
+                // getting parent element information to check for responsive video
+                var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
+                var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
+                var parentWidth= jQuery(element).parent().width();
+                var percentPadding = Math.round((responsive/parentWidth) * 100);
+                var videoPosition = jQuery(element).css("position");
+                
+                var leftOffset = jQuery(element).offset().left;
+                
+                var elementWidth = jQuery(element).width();
+                
+                var elementHeight = jQuery(element).height();
+                
+                var documentWidth = jQuery(document).width();
+    
+                if (src) {
+    
+                    if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1) {
+                        src = "http:" + src;
+                    }
+                    
+                    if(src.indexOf('?wmode=transparent') != -1) {
+                        src = src.replace('?wmode=transparent', '');
+                    }
+                    
+                    if(!srcUndefined) {
+                        
+                        for (i = 0; i < providers.length; i++) {
+    
+                            if ( src.indexOf(providers[i]) != -1 ) { //check if src url is in white list
+                                
+                                // If video is responsive
+                                if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
+                                    var buttonOffset = '-1';
+                                    var topOffset = '43%';
+                                    jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href='//www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+                                } else {
+                                    var buttonOffset = documentWidth - (leftOffset + elementWidth);
+                                    var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
+                                    jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href='//www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+                                }
+                                
+                                streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'>" + src + "</a>";
+                                
+                                if( src.indexOf('youtube') > -1 || src.indexOf('youtu.be') > -1 )  {
+                                    jQuery(element).attr('src', src+"?wmode=transparent");
+                                } 
+    
+                            } else {
+                                console.log('nope');
+                            }
+                        }
+                    
+                    } else if (srcUndefined) {
+                        
+                        for (i = 0; i < providers.length; i++) {
+    
+                            if ( src.indexOf(providers[i]) != -1 ) { //check if src url is in white list
+                            
+                            // If video is responsive
+                                if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
+                                    var buttonOffset = '-1';
+                                    var topOffset = '43%';
+                                    jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href='//www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
+                                } else {
+                                    var buttonOffset = documentWidth - (leftOffset + elementWidth);
+                                    var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
+                                    jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href='//www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>"); //append to video list
+                                }
+                                
+                                streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'>" + src + "</a>";
+                                
+                                if( src.indexOf('youtube') > -1 || src.indexOf('youtu.be') > -1)  {
+                                    jQuery(element).attr('src', src+"?wmode=transparent"); //prevents badge from hiding behind video
+                                } 
+    
+                            } else {
+                                console.log('nope');
+                            }
+                        }
+                        
+                    }
+                    
+                }
+            }
             
             if(src.indexOf("play.php") != -1) {
                 
@@ -155,98 +240,15 @@ function embedStreamtestBadge() {
                     if (jQuery(element).contents().find('video').length > 0 ) {
                         clearInterval(videoLoadedIntervalId);
                         checkForVideoElement();
+                        addIframeBadges();
                     }
                 }
                 
                 videoLoadedIntervalId = setInterval(pollForVideoLoaded, 200);
                 
+            } else {
+                addIframeBadges();
             }
-            
-            
-            // getting parent element information to check for responsive video
-			var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
-			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
-			var parentWidth= jQuery(element).parent().width();
-			var percentPadding = Math.round((responsive/parentWidth) * 100);
-			var videoPosition = jQuery(element).css("position");
-			
-			var leftOffset = jQuery(element).offset().left;
-			
-			var elementWidth = jQuery(element).width();
-			
-			var elementHeight = jQuery(element).height();
-			
-			var documentWidth = jQuery(document).width();
-
-            if (src) {
-
-            	if (src.indexOf("http:") == -1 && src.indexOf("https:") == -1 && src.indexOf("rtmp:") == -1) {
-					src = "http:" + src;
-				}
-				
-				if(src.indexOf('?wmode=transparent') != -1) {
-					src = src.replace('?wmode=transparent', '');
-				}
-                
-				if(!srcUndefined) {
-                	
-					for (i = 0; i < providers.length; i++) {
-
-						if ( src.indexOf(providers[i]) != -1 ) { //check if src url is in white list
-							
-                            // If video is responsive
-							if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
-								var buttonOffset = '-1';
-								var topOffset = '43%';
-								jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href='//www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-							} else {
-								var buttonOffset = documentWidth - (leftOffset + elementWidth);
-								var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
-								jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href='//www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-							}
-							
-							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'>" + src + "</a>";
-							
-							if( src.indexOf('youtube') > -1 || src.indexOf('youtu.be') > -1 )  {
-								jQuery(element).attr('src', src+"?wmode=transparent");
-							} 
-
-						} else {
-							console.log('nope');
-						}
-					}
-				
-				} else if (srcUndefined) {
-					
-					for (i = 0; i < providers.length; i++) {
-
-						if ( src.indexOf(providers[i]) != -1 ) { //check if src url is in white list
-					       
-                           // If video is responsive
-							if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
-								var buttonOffset = '-1';
-								var topOffset = '43%';
-								jQuery(element).after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+";' href='//www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>");
-							} else {
-								var buttonOffset = documentWidth - (leftOffset + elementWidth);
-								var topOffset = jQuery(element).offset().top + Math.round(elementHeight/2.3);
-								jQuery("#StreamTestBackground").after("<a class='streamtestButtonLink' style='right:"+buttonOffset+"px; top:"+topOffset+"px;' href='//www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'><span class='streamButton' >Test This Stream</span></a>"); //append to video list
-							}
-							
-							streamUrlListHtml += "<a class='STLVhl' href='http://www.streamtest.net/newtest?streamurl=" + encodeURIComponent(src) + "&ref="+refUrl+ "&badgeId="+badgeId+"' target='_blank'>" + src + "</a>";
-							
-							if( src.indexOf('youtube') > -1 || src.indexOf('youtu.be') > -1)  {
-								jQuery(element).attr('src', src+"?wmode=transparent"); //prevents badge from hiding behind video
-							} 
-
-						} else {
-							console.log('nope');
-						}
-					}
-					
-				}
-				
-			}
         });
 		
 
