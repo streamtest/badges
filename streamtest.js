@@ -136,16 +136,32 @@ function embedStreamtestBadge() {
 
         jQuery("iframe").each(function (index, element) {
             var src = jQuery(element).attr('src');
-            console.log(src);
 			if (typeof src === 'undefined') { //check if iframe has a source
 				    src = jQuery(element).contents().find('video').attr('src'); //find video element inside of iframe
 				srcUndefined = true;
 			}
             
+            
+            
             if(src.indexOf("play.php") != -1) {
-                src = jQuery(element).contents().find('video > source').attr('src');
-                console.log(src);
+                
+                var videoLoadedIntervalId = null;
+            
+                function checkForVideoElement() {
+                    src = jQuery(element).contents().find('video > source').attr('src');
+                }
+                            
+                function pollForVideoLoaded() {
+                    if (jQuery(element).contents().find('video').length > 0 ) {
+                        clearInterval(videoLoadedIntervalId);
+                        checkForVideoElement();
+                    }
+                }
+                
+                videoLoadedIntervalId = setInterval(pollForVideoLoaded, 200);
+                
             }
+            
             
             // getting parent element information to check for responsive video
 			var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
