@@ -166,8 +166,7 @@ function embedStreamtestBadge() {
 				}
 				
                 if(src.indexOf("play.php") != -1) {
-                    var base64VideoUrl = src.split('play.php?id=')[1];
-                    src = atob(base64VideoUrl);
+                    src = jQuery(element).contents().find('video').attr('src');
                 }
                 
 				if(!srcUndefined) {
