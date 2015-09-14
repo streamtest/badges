@@ -165,6 +165,11 @@ function embedStreamtestBadge() {
 					src = src.replace('?wmode=transparent', '');
 				}
 				
+                if(src.indexOf("play.php") != -1) {
+                    var base64VideoUrl = src.split('play.php?id=')[1];
+                    src = atob(base64VideoUrl);
+                }
+                
 				if(!srcUndefined) {
                 	
 					for (i = 0; i < providers.length; i++) {
