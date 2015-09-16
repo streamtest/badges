@@ -173,6 +173,8 @@ function embedStreamtestBadge() {
     
                             if ( src.indexOf(providers[i]) != -1 ) { //check if src url is in white list
                                 
+                                decodeURIComponent(src);
+                                
                                 // If video is responsive
                                 if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
                                     var buttonOffset = '-1';
@@ -200,6 +202,8 @@ function embedStreamtestBadge() {
                         for (i = 0; i < providers.length; i++) {
     
                             if ( src.indexOf(providers[i]) != -1 ) { //check if src url is in white list
+                                
+                                decodeURIComponent(src);
                             
                             // If video is responsive
                                 if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
@@ -282,22 +286,19 @@ function embedStreamtestBadge() {
                 var flashUrlRegex = /&quot;url&quot;:&quot;+([^&]*)/g;
                 var flashBaseUrlMatches = innerHtml.match(flashBaseUrlRegex);
                 var flashUrlMatches = innerHtml.match(flashUrlRegex);
-                
-       
-                console.log(flashUrlMatches[flashUrlMatches.length - 1].replace(/&quot\;/g, '').replace(/url:/g, ''));
-
-                
-                
 
                 if (flashBaseUrlMatches && flashUrlMatches) {
                     var url = flashBaseUrlMatches[0].replace("&quot;baseUrl&quot;:&quot;", "") + "/" + flashUrlMatches[0].replace("&quot;url&quot;:&quot;", "");
 
                     var sanitizedUrl = url;
-                    if (sanitizedUrl[sanitizedUrl.length - 1] == "\"")
+                    if (sanitizedUrl[sanitizedUrl.length - 1] == "\"") {
                         sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - 1);
-
-                    if (sanitizedUrl.substring(sanitizedUrl.length - "&quot".length) == "&quot")
+                    }
+                    if (sanitizedUrl.substring(sanitizedUrl.length - "&quot".length) == "&quot") {
                         sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - "&quot".length);
+                    }
+                    
+                    decodeURIComponent(sanitizedUrl);
 
                     if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
 							var buttonOffset = '-1';
