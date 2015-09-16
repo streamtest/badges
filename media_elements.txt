@@ -1,0 +1,10 @@
+this file shows known media elements
+use this file to help determine when/where to autolocate the streamtest helper
+youtube
+vimeo
+dailymotion
+twitch
+facebook
+twitter 
+cnn
+etc.
