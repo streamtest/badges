@@ -173,7 +173,7 @@ function embedStreamtestBadge() {
     
                             if ( src.indexOf(providers[i]) != -1 ) { //check if src url is in white list
                                 
-                                decodeURIComponent(src);
+                                src = decodeURIComponent(src);
                                 
                                 // If video is responsive
                                 if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
@@ -203,7 +203,7 @@ function embedStreamtestBadge() {
     
                             if ( src.indexOf(providers[i]) != -1 ) { //check if src url is in white list
                                 
-                                decodeURIComponent(src);
+                                src = decodeURIComponent(src);
                             
                             // If video is responsive
                                 if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
@@ -298,7 +298,7 @@ function embedStreamtestBadge() {
                         sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - "&quot".length);
                     }
                     
-                    decodeURIComponent(sanitizedUrl);
+                    sanitizedUrl = decodeURIComponent(sanitizedUrl);
 
                     if ((percentPadding == '56' && responsiveHeight == '0') || (percentPadding == '56' && videoPosition == 'absolute')) {
 							var buttonOffset = '-1';
