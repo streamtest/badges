@@ -204,7 +204,7 @@ function embedStreamtestBadge() {
                                 } 
     
                             } else {
-                                console.log('nope');
+
                             }
                         }
                     
@@ -234,7 +234,7 @@ function embedStreamtestBadge() {
                                 } 
     
                             } else {
-                                console.log('nope');
+         
                             }
                         }
                         
@@ -317,7 +317,7 @@ function embedStreamtestBadge() {
                 
 
                 if (flashBaseUrlMatches && flashUrlMatches) {
-   
+
                     var url = flashBaseUrlMatches[0].replace("&quot;baseUrl&quot;:&quot;", "") + "/" + flashUrlMatches[0].replace("&quot;url&quot;:&quot;", "");
 
                     var sanitizedUrl = sanitizeUrl(url);
@@ -332,10 +332,17 @@ function embedStreamtestBadge() {
                     sanitizedUrl = decodeURIComponent(sanitizedUrl);
                     
                     addObjectBadge();
+                } else if(jwplayer()) {
+                    var elementId = jQuery(element).attr('id');
+                    sanitizedUrl = jwplayer(elementId).config.file;
+                    addObjectBadge();
                 } else {
                     var mp4Str = jQuery(element).find('param[name=flashvars]').attr('value');
-                    sanitizedUrl = getUrlVars(mp4Str)['mp4'];
-                    addObjectBadge(); 
+                    if(mp4Str) {
+                        sanitizedUrl = getUrlVars(mp4Str)['mp4'];
+                        addObjectBadge();
+                    }
+                     
                 }
             }
         });
@@ -355,7 +362,6 @@ var observeComplete = false;
 function checkDOM() {
 	jQuery(document).bind('DOMNodeInserted', function(event) {
 		if(event.target.nodeName == 'IFRAME' || event.target.nodeName == 'OBJECT' || event.target.nodeName == 'VIDEO' || event.target.nodeName == 'EMBED') {
-			console.log('run');
 			jQuery('.streamtestButtonLink').remove();
 			embedStreamtestBadge();
 		} else {
