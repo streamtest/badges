@@ -134,8 +134,7 @@ function getUrlVars(url) {
 }
 
 function embedStreamtestBadge() {
-    jQuery(document).ready(function () {
-		
+    
 		var badgeId = jQuery('a[href^="http://www.streamtest.net/#badges"]').attr('data-site-id');
 		
 		var streamUrlListHtml = '';
@@ -352,9 +351,6 @@ function embedStreamtestBadge() {
 		} else {
 			jQuery("#STVLBody").html('<p>No Videos Found.</p>');
 		}
-		
-    });
-	
 }
 
 var observeComplete = false;
