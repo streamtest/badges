@@ -140,7 +140,7 @@ function embedStreamtestBadge() {
 		var streamUrlListHtml = '';
 		
 		//White list of iframe urls (prevents badges appending to other iframes which are not video content)
-		var providers = ["youtube.com", "youtu.be", "vimeo.com", "netflix.com", "screen.yahoo", "dailymotion.com", "hulu.com", "vube.com", "twitch.tv", "liveleak.com", "vine.co", "ustream.com", "break.com", "tv.com", "youporn", "play.php", "player.netromedia.com"];
+		var providers = ["youtube.com", "youtu.be", "vimeo.com", "netflix.com", "screen.yahoo", "dailymotion.com", "hulu.com", "vube.com", "twitch.tv", "liveleak.com", "vine.co", "ustream.com", "break.com", "tv.com", "youporn", "play.php"];
 		
 		var srcUndefined = false;
 
