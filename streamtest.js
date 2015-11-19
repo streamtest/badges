@@ -67,16 +67,6 @@ function jqueryLoaded() {
             });
         }
 
-        function sanitizeUrl(url) {
-            var sanitizedUrl = url;
-
-            for (var sanitizationCharactersIndex = 0; sanitizationCharactersIndex < sanitizationCharacters.length; sanitizationCharactersIndex++) {
-                sanitizedUrl = sanitizedUrl.replace(sanitizationCharacters[sanitizationCharactersIndex], "");
-            }
-
-            return sanitizedUrl;
-        }
-
         var fullhtml = jQuery("html").html();
 
         var flashBaseUrlRegex = /&quot;baseUrl&quot;:&quot;+([^&]*)/g;
@@ -135,6 +125,16 @@ function getUrlVars(url) {
 
 function embedStreamtestBadge() {
 
+        function sanitizeUrl(url) {
+            var sanitizedUrl = url;
+
+            for (var sanitizationCharactersIndex = 0; sanitizationCharactersIndex < sanitizationCharacters.length; sanitizationCharactersIndex++) {
+                sanitizedUrl = sanitizedUrl.replace(sanitizationCharacters[sanitizationCharactersIndex], "");
+            }
+
+            return sanitizedUrl;
+        }
+        
 		var badgeId = jQuery('a[href^="http://www.streamtest.net/#badges"]').attr('data-site-id');
 
 		var streamUrlListHtml = '';
@@ -270,7 +270,8 @@ function embedStreamtestBadge() {
 
 
         jQuery("object").each(function (index, element) {
-            var type = jQuery(element).attr('type');
+            var objectType = jQuery(element).attr('type');
+            var embedType = jQuery(element).find('embed').attr('type');
             var responsive = jQuery(element).parent().css("padding-bottom").replace(/[^-\d\.]/g, '');
 			var responsiveHeight = Math.round(jQuery(element).parent().css("height").replace(/[^-\d\.]/g, ''));
 			var parentWidth= jQuery(element).parent().width();
@@ -305,13 +306,15 @@ function embedStreamtestBadge() {
                 }
             }
 
-            if (type === "application/x-shockwave-flash") {
-
+            if (objectType == "application/x-shockwave-flash" || embedType == "application/x-shockwave-flash" ) {
+                console.log(embedType);
                 var innerHtml = jQuery(element).html();
-
+                console.log(innerHtml);
                 var flashBaseUrlRegex = /&quot;baseUrl&quot;:&quot;+([^&]*)/g;
+                var flashNetConnectionUrlRegex = /&quot;netConnectionUrl&quot;:&quot;+([^&]*)/g;
                 var flashUrlRegex = /&quot;url&quot;:&quot;+([^&]*)/g;
                 var flashBaseUrlMatches = innerHtml.match(flashBaseUrlRegex);
+                var flashNetConnectionUrlMatches = innerHtml.match(flashNetConnectionUrlRegex);
                 var flashUrlMatches = innerHtml.match(flashUrlRegex);
 
 
@@ -331,7 +334,25 @@ function embedStreamtestBadge() {
                     sanitizedUrl = decodeURIComponent(sanitizedUrl);
 
                     addObjectBadge();
-                } else if(jwplayer()) {
+                } 
+                else if (flashNetConnectionUrlMatches && flashUrlMatches) {
+
+                    var url = flashNetConnectionUrlMatches[0].replace("&quot;netConnectionUrl&quot;:&quot;", "") + "/" + flashUrlMatches[0].replace("&quot;url&quot;:&quot;", "");
+
+                    var sanitizedUrl = sanitizeUrl(url);
+
+                    if (sanitizedUrl[sanitizedUrl.length - 1] == "\"") {
+                        sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - 1);
+                    }
+                    if (sanitizedUrl.substring(sanitizedUrl.length - "&quot".length) == "&quot") {
+                        sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - "&quot".length);
+                    }
+
+                    sanitizedUrl = decodeURIComponent(sanitizedUrl);
+
+                    addObjectBadge();
+                } 
+                else if(jwplayer()) {
                     var elementId = jQuery(element).attr('id');
                     sanitizedUrl = jwplayer(elementId).config.file;
                     addObjectBadge();
