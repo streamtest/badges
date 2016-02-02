@@ -33,82 +33,84 @@ if (typeof(MutationObserver) != "function") {
 
 include("https://streamtest.github.io/badges/streamtestbadge.css", "css");
 
+
+jQuery(document).ready(function () {
+    checkJquery();
+});
+
 function jqueryLoaded() {
     clearInterval(jQueryLoadCheckInterval);
-    jQuery(document).ready(function () {
-        checkJquery();
-        var popupStatus = 0;
-        function loadPopup() {
-            if (popupStatus === 0) {
+    var popupStatus = 0;
+    function loadPopup() {
+        if (popupStatus === 0) {
 
-                jQuery("#StreamTestBackground").fadeIn("slow");
-                jQuery("#StreamTestVideoList").fadeIn("slow");
+            jQuery("#StreamTestBackground").fadeIn("slow");
+            jQuery("#StreamTestVideoList").fadeIn("slow");
 
-                if (typeof StreamTestURLS !== 'undefined' || window.location.host == "player.netromedia.com") {
-                    jQuery("#presetStreamUrlsMsg").show();
-                    jQuery("#STVLBody").css('height', '56%');
-                }
-
-                popupStatus = 1;
+            if (typeof StreamTestURLS !== 'undefined' || window.location.host == "player.netromedia.com") {
+                jQuery("#presetStreamUrlsMsg").show();
+                jQuery("#STVLBody").css('height', '56%');
             }
+
+            popupStatus = 1;
         }
-        function disablePopup() {
-            if (popupStatus === 1) {
-                jQuery("#StreamTestBackground").fadeOut("slow");
-                jQuery("#StreamTestVideoList").fadeOut("slow");
-                popupStatus = 0;
-            }
+    }
+    function disablePopup() {
+        if (popupStatus === 1) {
+            jQuery("#StreamTestBackground").fadeOut("slow");
+            jQuery("#StreamTestVideoList").fadeOut("slow");
+            popupStatus = 0;
         }
-        function centerPopup() {
-            var windowWidth = document.documentElement.clientWidth;
-            var windowHeight = document.documentElement.clientHeight;
-            jQuery("#StreamTestBackground").css({
-                "height": windowHeight
-            });
-        }
+    }
+    function centerPopup() {
+        var windowWidth = document.documentElement.clientWidth;
+        var windowHeight = document.documentElement.clientHeight;
+        jQuery("#StreamTestBackground").css({
+            "height": windowHeight
+        });
+    }
 
-        var fullhtml = jQuery("html").html();
+    var fullhtml = jQuery("html").html();
 
-        var flashBaseUrlRegex = /&quot;baseUrl&quot;:&quot;+([^&]*)/g;
-        var flashUrlRegex = /&quot;url&quot;:&quot;+([^&]*)/g;
-        var flashBaseUrlMatches = fullhtml.match(flashBaseUrlRegex);
-        var flashUrlMatches = fullhtml.match(flashUrlRegex);
+    var flashBaseUrlRegex = /&quot;baseUrl&quot;:&quot;+([^&]*)/g;
+    var flashUrlRegex = /&quot;url&quot;:&quot;+([^&]*)/g;
+    var flashBaseUrlMatches = fullhtml.match(flashBaseUrlRegex);
+    var flashUrlMatches = fullhtml.match(flashUrlRegex);
 
-        if (flashBaseUrlMatches != null && flashUrlMatches) {
-            var url = flashBaseUrlMatches[0].replace("&quot;baseUrl&quot;:&quot;", "") + "/" + flashUrlMatches[0].replace("&quot;url&quot;:&quot;", "");
+    if (flashBaseUrlMatches != null && flashUrlMatches) {
+        var url = flashBaseUrlMatches[0].replace("&quot;baseUrl&quot;:&quot;", "") + "/" + flashUrlMatches[0].replace("&quot;url&quot;:&quot;", "");
 
-            var sanitizedUrl = url;
-            if (sanitizedUrl[sanitizedUrl.length - 1] == "\"")
-                sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - 1);
+        var sanitizedUrl = url;
+        if (sanitizedUrl[sanitizedUrl.length - 1] == "\"")
+            sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - 1);
 
-            if (sanitizedUrl.substring(sanitizedUrl.length - "&quot".length) == "&quot")
-                sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - "&quot".length);
+        if (sanitizedUrl.substring(sanitizedUrl.length - "&quot".length) == "&quot")
+            sanitizedUrl = sanitizedUrl.substring(0, sanitizedUrl.length - "&quot".length);
 
-        }
+    }
 
-        if (jQuery('#StreamTestVideoList').length === 0) {
-            jQuery(document.body).append(getStreamTestVideoList());
-    	}
+    if (jQuery('#StreamTestVideoList').length === 0) {
+        jQuery(document.body).append(getStreamTestVideoList());
+    }
 
-        jQuery("#StreamTestClose").click(function () {
+    jQuery("#StreamTestClose").click(function () {
+        disablePopup();
+    });
+
+    jQuery("#StreamTestBackground").click(function () {
+        disablePopup();
+    });
+
+    jQuery(document).keypress(function (e) {
+        if (e.keyCode == 27 && popupStatus == 1) {
             disablePopup();
-        });
+        }
+    });
 
-        jQuery("#StreamTestBackground").click(function () {
-            disablePopup();
-        });
-
-        jQuery(document).keypress(function (e) {
-            if (e.keyCode == 27 && popupStatus == 1) {
-                disablePopup();
-            }
-        });
-
-    	jQuery('a[href~="http://www.streamtest.net/#badges"]').click(function(event) {
-    		event.preventDefault();
-    		centerPopup();
-            loadPopup();
-    	});
+    jQuery('a[href~="http://www.streamtest.net/#badges"]').click(function(event) {
+        event.preventDefault();
+        centerPopup();
+        loadPopup();
     });
 }
 
