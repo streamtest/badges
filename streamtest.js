@@ -38,7 +38,6 @@ function jqueryLoaded() {
     jQuery(document).ready(function () {
         checkJquery();
         var popupStatus = 0;
-
         function loadPopup() {
             if (popupStatus === 0) {
 
@@ -308,9 +307,7 @@ function embedStreamtestBadge() {
             }
 
             if (objectType == "application/x-shockwave-flash" || embedType == "application/x-shockwave-flash" ) {
-                console.log(embedType);
                 var innerHtml = jQuery(element).html();
-                console.log(innerHtml);
                 var flashBaseUrlRegex = /&quot;baseUrl&quot;:&quot;+([^&]*)/g;
                 var flashNetConnectionUrlRegex = /&quot;netConnectionUrl&quot;:&quot;+([^&]*)/g;
                 var flashUrlRegex = /&quot;url&quot;:&quot;+([^&]*)/g;
