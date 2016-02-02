@@ -36,6 +36,7 @@ include("https://streamtest.github.io/badges/streamtestbadge.css", "css");
 function jqueryLoaded() {
     clearInterval(jQueryLoadCheckInterval);
     jQuery(document).ready(function () {
+        checkJquery();
         var popupStatus = 0;
 
         function loadPopup() {
@@ -399,4 +400,3 @@ function checkJquery() {
         jQueryLoadCheckInterval = window.setInterval(checkJquery, 100);
     }
 }
-checkJquery();
