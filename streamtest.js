@@ -28,10 +28,10 @@ if (!window.jQuery) {
 }
 
 if (typeof(MutationObserver) != "function") {
-	include("https://streamtest.github.io/badges/mutationobserver.js", "js");
+	include("https://webcdn.streamtest.net/mutationobserver.js", "js");
 }
 
-include("https://streamtest.github.io/badges/streamtestbadge.css", "css");
+include("https://webcdn.streamtest.net/streamtestbadge.css", "css");
 
 
 jQuery(document).ready(function () {
